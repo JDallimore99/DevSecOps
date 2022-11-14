@@ -34,3 +34,16 @@ _Use DevSecOps Maturity Models to improve further_
 - Many don't provide an API to use it
 - Spidering is a big ussue with DAST Automation
 - Handling False Positives locally vs a service
+
+```sh
+sast:
+  stage: build
+  script:
+    - docker pull hysnsec/bandit  # Download bandit docker container
+    - docker run --user $(id -u):$(id -g) -v $(pwd):/src --rm hysnsec/bandit -r /src -f json -o /src/bandit-output.json
+  artifacts:
+    paths: [bandit-output.json]
+    when: always
+  allow_failure: true   #<--- allow the build to fail but don't mark it as such
+```
+Notice the last line allow_failure: true, its important for DevSecOps.
