@@ -1,1 +1,40 @@
+# SSH Basics
+Secure Shell (SSH) allows you to login into remote machines for administration, run commands remotely, deploy applications, upload/download files and automate system administration tasks.
 
+## Getting Started
+Can log into a remote machine using the following command
+```sh
+ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/id_rsa root@prod-gj1lt9xw
+```
+- **-i** allows us to specify the pivate key to use to log into a remote machine
+- **root** is a user we want to login as
+- **prod-gj1lt9xw** is the hostname of the server
+```sh
+**Command Output**
+The authenticity of host 'prod-xhdfmttw (10.x.x.x)' can't be established.
+ECDSA key fingerprint is SHA256:pB1enuLtdg6tIPn3Jm+zBkNFPSbm5s7Ym5js8FMyaOE.
+Are you sure you want to continue connecting (yes/no)? yes
+```
+>This key fingerprint is there to ensure you cross-check the signature of the remote machine, which ensures that you are connecting to a machine that you actually intended to connect to.
+However, it’s a blocker if we want to run automated commands. We can avoid the host authenticity check using the following command by explicitly adding (whitelisting) the target host’s fingerprint to a list of known hosts in the ~/.ssh/known_hosts file.
+
+If you had provided yes for the ssh authenticity warning, the **ssh** command would have logged us in the production system. We can use the hostname command to verify we are in the remote machine.
+```sh 
+ssh-keyscan -t rsa prod-gj1lt9xw >> ~/.ssh/known_hosts
+hostname
+```
+## Run Commands remotely
+You can use ssh to run commands remotely on the remote machine.
+Anything in **quotes** is run on the remote machine. The remote machine in the above example is **prod-gj1lt9xw**
+```sh
+ssh root@prod-gj1lt9xw "hostname"
+**Command Output**
+prod-gj1lt9xw
+```
+The above command **hostname** ran on the production machine, and we got the production’s hostname instead of the devsecops-box’s hostname.
+## Recap
+1. **sshd** server needs to be configured to allow ssh
+2. **ssh-keygen** generates a new public-private key pair for authentication
+3. **private key** is never shared with anyone, it is only used during authentication
+4. **public key** needs to exported to **~/.ssh/authorized_keys** on a server to which we need to connect to
+5. **ssh-copy-id** helps in copying public keys to the authorized_keys file
