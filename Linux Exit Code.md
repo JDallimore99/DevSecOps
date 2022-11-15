@@ -1,1 +1,45 @@
+# Linux Exit Code
+## Exit code basics
+A program or a script that completed its execution indicates whether it executed successfully or unsuccessfully through what is called an **exit** code.
 
+Conventionally an **exit code 0** denotes a program’s successful execution; A **non-zero exit code** denotes an unsuccessful execution of a program.
+
+The exit code returned by a program could be obtained through **echo $**?
+
+> Note: When CI/CD systems such as GitLab execute a certain command, after the command completes its execution, the CI/CD system checks the exit code of the last executed command to indicate whether the build job executed successfully or not.
+
+**Try a simple directory listing of the current directory and review the exit code**
+```sh 
+ls
+echo $?
+
+ **Command Output**
+ 0
+ ```
+ Apparently, after running ls where the directory listing was successful, the exit code is 0 (zero)
+ 
+ **Try listing a directory that does not exist and review the exit code**
+ ```sh 
+ ls non-existent-dir
+ **Command Output**
+ ls: cannot access 'non-existent-dir': No such file or directory
+ ```
+ ```sh
+ echo $?
+ **Command Output**
+ 2
+ ```
+ Since the directory **non-existent-dir** did not exist, the **ls** command was unsuccessful in listing the directory contents.
+Hence, a **non-zero** exist code is returned. **2** is definitely **non-zero**.
+
+## Exit Code Advanced
+In the context of security tooling, **unsuccessful execution** generally means that the security tool found vulnerabilities.
+
+In many cases, a mature security tool would return an exit code of **zero** indicating that the tool found **no vulnerabilities**. A mature security tool would return a **non zero** exit code indicating that the tool found **one or more security vulnerabilities**.
+>Note: Developers of a security tool are liberal in choosing to return non-zero exit codes. That is, when a vulnerability is found, some security tools return an exit code of 13, some security tools return an exit code of 255, some security tools return an exit code of 1. In all cases, 13, 255, and 1 are non-zero exit codes indicating the presence of a vulnerability.
+
+## Recap
+1. Zero exit code indicates a success
+2. Non-Zero exit code indicates a failure
+3. In the context of most security tooling, zero exit code means no vulnerabilities found, non-zero exit code means vulnerabilities found
+4. Non-Zero exit code can either be 1, or 13, or 99, or 255, or just any integer that is not a zero
