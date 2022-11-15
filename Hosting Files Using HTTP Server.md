@@ -1,1 +1,31 @@
-
+# Hosting Files Using HTTP Server
+In this exercise, we will be creating a HTTP server using python to make the files easily accessible. This will be useful when you want to download or edit your file locally.
+## HTTP Server
+HTTP server is a web server which can be communicated using the **URLs** and **HTTP** protocol. It is widely used to create web applications and APIs.
+Let’s create a file **home_page.html** and host it using the python http server.
+```sh
+cat > home_page.html <<EOL
+<html>
+<body>
+<p>Welcome to the home page!</p>
+</body>
+</html>
+EOL
+```
+Now we have created the **file home_page.html.**
+Creating the python server is simple, enter the below command:
+```sh
+python3 -m http.server &
+**Output**
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+```
+Open a new terminal and type below in the machine to find the devsecops machine name
+```sh
+hostname
+**Output**
+devsecops-box-gj1lt9xw
+``` 
+Now the files can be accessed using the below link.
+https://devsecops-box-gj1lt9xw-8000.lab.practical-devsecops.training
+Now you can click the **home_page.html** hyperlink and view the file.
+You can save the file by clicking the secondary mouse button and choosing save as. Give respective file name with extension and press save.
