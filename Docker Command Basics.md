@@ -1,1 +1,108 @@
+# Docker Command Basics
+## Pull the image
+pull is an argument to download the docker image from the docker registry, its similar to git repository but designed to store the docker images than the code.
+By default, the docker command will pull the image from DockerHub. When you do a pull, if the tag/version is not given for an image, the docker daemon assumes the latest tag by default.
+```sh
+docker pull ubuntu
+**Output**
+Using default tag: latest
+latest: Pulling from library/ubuntu
+d72e567cc804: Pull complete
+0f3630e5ff08: Pull complete
+b6a83d81d1f4: Pull complete
+Digest: sha256:bc2f7250f69267c9c6b66d7b6a81a54d3878bb85f1ebb5f951c896d13e6ba537
+Status: Downloaded newer image for ubuntu:latest
+docker.io/library/ubuntu:latest
+```
+You will see the following output for the docker pull command. If you wish, you can hide the output with an extra argument called --quiet or -q.
+```sh
+docker pull -q alpine
+**Output**
+docker.io/library/alpine:latest
+```
+## Run the Image
+run is an argument to start a container from the docker image. There are a lot of options that we can use, such as a name for the container, bind port, and so on.
+For example, we can run a container in the background using -d option and give it a name using --name option.
+```sh
+docker run -d --name myubuntu ubuntu
+```
+The container will start/run in the background, but if you list the containers with docker ps, you won’t find the container with myubuntu name.
+Because there is no process attached to the container it will exit as soon as it starts with the status exited. To keep the container running, we can add the --interactive or -i argument. It will raise an error as we are using the same container name as before.
+```sh
+docker run -d --name myubuntu -i ubuntu
+**Output**
+docker: Error response from daemon: Conflict. The container name "/myubuntu" is already in use by container "4b48e0e1e5266cf59ee9004d4df6127931e6100b7a2269bdbdf559da9a836384". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+```
+We can run the docker rm command to remove the previous container.
+```sh
+docker rm myubuntu
+```
+Let's re-run the mybuntu interactive command
+```sh
+**Output**
+c43190a11b8a68673a49f967d78da11cc4d27c3222fedb6496395f4e175ac807
+```
 
+## Run a command in a running container
+exec is an argument to execute a command inside a container or to get the shell in the container.
+```sh
+docker exec myubuntu whoami
+**Output**
+root
+```
+```sh
+docker exec myubuntu cat /etc/lsb-release
+**Output**
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=20.04
+DISTRIB_CODENAME=focal
+DISTRIB_DESCRIPTION="Ubuntu 20.04.1 LTS"
+```
+Or can spawn a shell in the container
+```sh
+docker exec -it myubuntu bash
+**Output**
+root@c43190a11b8a:/#
+```
+
+## List Containers
+ps is an argument to list containers (running form of images). It provides various options to filter the output according to the status of the container like created, running, exited, or stopped etc.
+Let’s run a container that exits and see if -a options shows us the container’s status.
+```sh
+docker run -d --name yourubuntu ubuntu
+docker ps -a
+**Output**
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+7aca537e07e2        ubuntu              "/bin/bash"         4 minutes ago       Up 4 minutes                            myubuntu
+9ebd1d8e6d84        debian              "bash"              5 minutes ago       Exited (0) 5 minutes ago                       sleepy_hellman
+```
+The above outputs shows all containers of status included, exited or stopped
+
+## Show the running proccesses of a container
+top is an argument to display the running processes inside a container.
+```sh
+docker top myubuntu
+**Output**
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+root                1336                1318                0                   19:16               ?                   00:00:00            /bin/bash
+```
+myubuntu container is running bash process
+
+## Challenge
+Create a container by running nginx:1.21.3 image in detach mode
+```sh
+docker run -d nginx:1.21.3
+```
+Start a container in detach mode using the above image with the container name, webserver and environment variable, APP=nginx
+```sh
+docker run -d --name webserver --env APP=nginx nginx:1.21.3
+or 
+docker run -d --name webserver -e APP=nginx nginx:1.21.3
+```
+Remove the above container and start another one using above configurations and by binding container port, 80 with the host’s 80 port.
+```sh
+docker stop webserver && docker rm webserver
+docker run -d --name=webserver --env APP=nginx -p 80:80 nginx:1.21.3
+```
+>Note: In case the port binding was -p 127.0.0.1:80:80, then the container’s port 80 will only be bound to the host port 80 through the IP address 127.0.0.1 only. For this exercise, since the default nginx webpage should be made available through https://devsecops-box-gj1lt9xw.lab.practical-devsecops.training the publishing of port should be done as -p 80:80 which will bind the container’s port 80 to all IP addresses on the host through port 80.
