@@ -1,1 +1,32 @@
+#Search text in vi editor
+## Search in a file
+We can search inside the file using the /
+Create the file security-report.json using the below content
+```sh
+{
+    "Name":"XSS",
+    "Vulnerabilities": "10",
+    "Valid": "2",
+    "Severity": "High",
+    "generated_at": "2022-05-16T17:37:50Z",
+    "Name":"SQL injection",
+    "Vulnerabilities": "9",
+    "Valid": "1",
+    "Severity": "High",
+    "generated_at": "2022-05-16T17:37:50Z",
+    "Name":"IDOR",
+    "Vulnerabilities": "6",
+    "Valid": "4",
+    "Severity": "High",
+    "generated_at": "2022-05-16T17:37:50Z"
+}
+```
+Let us search for the text, High
+type /High and press enter
+The cursor will be moved to the word high
 
+### Search in multiple occurences
+Now we know how to search for a particular word in the text file using vi editor, How do we move from one word to another word when there is multiple occurences?
+We can move or search for the next or previous occurence in the text file using the n. We use n for search for the next occurence and **shift + n** for going back to the previous occurence.
+Open the file **security-report.json**, search for the text **High**
+Now press n to move the next occurence and press **shift + n** for the previous occurence.
