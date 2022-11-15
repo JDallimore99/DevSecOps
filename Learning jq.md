@@ -1,1 +1,428 @@
+# Learning jq
+## Getting started with jq
+JSON is a commonly used structured data format used today, and the reason for its popularity is because it is lightweight and compatible with most systems.
 
+But unfortunately, it is not easy to work with JSON via the command line. There are tools like sed and grep, but when it comes to processing JSON data, these tools have limited functionality.
+```sh
+jq - commandline JSON processor [version 1.6]
+
+Usage:  jq [options] <jq filter> [file...]
+  jq [options] --args <jq filter> [strings...]
+  jq [options] --jsonargs <jq filter> [JSON_TEXTS...]
+
+jq is a tool for processing JSON inputs, applying the given filter to
+its JSON text inputs and producing the filter's results as JSON on
+standard output.
+
+The simplest filter is .(dot), which copies jq's input to its output
+unmodified (except for formatting, but note that IEEE754 is used
+for number representation internally, with all that implies).
+
+For more advanced filters see the jq(1) manpage ("man jq")
+and/or https://stedolan.github.io/jq
+
+Example:
+
+  $ echo '{"foo": 0}' | jq .
+  {
+    "foo": 0
+  }
+
+Some of the options include:
+  -c               compact instead of pretty-printed output;
+  -n               use `null` as the single input value;
+  -e               set the exit status code based on the output;
+  -s               read (slurp) all inputs into an array; apply filter to it;
+  -r               output raw strings, not JSON texts;
+  -R               read raw strings, not JSON texts;
+  -C               colorize JSON;
+  -M               monochrome (don't colorize JSON);
+  -S               sort keys of objects on output;
+  --tab            use tabs for indentation;
+  --arg a v        set variable $a to value <v>;
+  --argjson a v    set variable $a to JSON value <v>;
+  --slurpfile a f  set variable $a to an array of JSON texts read from <f>;
+  --rawfile a f    set variable $a to a string consisting of the contents of <f>;
+  --args           remaining arguments are string arguments, not files;
+  --jsonargs       remaining arguments are JSON arguments, not files;
+  --               terminates argument processing;
+
+Named arguments are also available as $ARGS.named[], while
+positional arguments are available as $ARGS.positional[].
+
+See the manpage for more options.
+```
+### Working with jq filters
+jq is built around the concept of filters. Filter in jq takes the JSON input and emits the JSON output.
+Lets start with the simplest filter, which is .(dot)
+```sh
+echo '{"cloudprovider":{"name":"AWS","url":"www.aws.com"}} ' | jq '.'
+**Command Output**
+{
+  "cloudprovider": {
+    "name": "AWS",
+    "url": "www.aws.com"
+  }
+}
+```
+Applied **jq** filter directly on JSON string. We could also apply **jq** filter directly on **API response** and **JSON file**
+Apply **jq** on API Response and
+```sh
+curl https://randomuser.me/api/
+**Command output**
+{"results":[{"gender":"female","name":{"title":"Mrs","first":"Maria","last":"Thomsen"},"location":{"street":{"number":5504,"name":"Solsikkevej"},"city":"Viby Sj.","state":"Danmark","country":"Denmark","postcode":28773,"coordinates":{"latitude":"-34.5425","longitude":"89.7813"},"timezone":{"offset":"0:00","description":"Western Europe Time, London, Lisbon, Casablanca"}},"email":"maria.thomsen@example.com","login":{"uuid":"af778cf1-3613-49a8-acc3-b3a98d2f3848","username":"brownpeacock304","password":"rugby","salt":"zglKOH6V","md5":"107b394305c14c05f10e943d3b955267","sha1":"718852465e2fca94839a349cb9c2337bed82cbf8","sha256":"6b12d210902ef5c62ef9a74f6d6a4ae4c7fc4609d1e6f5ad63108c9200c80a17"},"dob":{"date":"1981-03-11T00:29:50.009Z","age":40},"registered":{"date":"2012-07-18T21:48:33.207Z","age":9},"phone":"81925254","cell":"76943366","id":{"name":"CPR","value":"110381-3537"},"picture":{"large":"https://randomuser.me/api/portraits/women/53.jpg","medium":"https://randomuser.me/api/portraits/med/women/53.jpg","thumbnail":"https://randomuser.me/api/portraits/thumb/women/53.jpg"},"nat":"DK"}],"info":{"seed":"44cfa3294d194dcd","results":1,"page":1,"version":"1.3"}}
+``` 
+Use **jq** filter to filter the response from the API
+```sh
+curl https://randomuser.me/api/ | jq '.'
+**Command output**
+{
+  "results": [
+    {
+      "gender": "male",
+      "name": {
+        "title": "Mr",
+        "first": "Lance",
+        "last": "Craig"
+      },
+      "location": {
+        "street": {
+          "number": 1133,
+          "name": "North Road"
+        },
+        "city": "Waterford",
+        "state": "Laois",
+        "country": "Ireland",
+        "postcode": 41223,
+        "coordinates": {
+          "latitude": "23.3676",
+          "longitude": "-23.4857"
+        },
+        "timezone": {
+          "offset": "+1:00",
+          "description": "Brussels, Copenhagen, Madrid, Paris"
+        }
+      },
+      "email": "lance.craig@example.com",
+      "login": {
+        "uuid": "92717f75-3758-4888-9bea-ba1d58014cc8",
+        "username": "tinymouse758",
+        "password": "qweasd",
+        "salt": "mBuFHHFJ",
+        "md5": "c5ef944b351c42f6a4f11b55fd8a713f",
+        "sha1": "bfeae8c852ee4849adc249d098cb86e118e4cc95",
+        "sha256": "49b730cc32e0439a7a16ec620acb885230ca3c70b8339c840ae66f144e1f73f6"
+      },
+      "dob": {
+        "date": "1981-10-07T23:58:28.997Z",
+        "age": 40
+      },
+      "registered": {
+        "date": "2003-08-19T07:00:03.665Z",
+        "age": 18
+      },
+      "phone": "031-501-3775",
+      "cell": "081-790-7836",
+      "id": {
+        "name": "PPS",
+        "value": "2533452T"
+      },
+      "picture": {
+        "large": "https://randomuser.me/api/portraits/men/84.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/84.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/84.jpg"
+      },
+      "nat": "IE"
+    }
+  ],
+  "info": {
+    "seed": "489f7f19e861af8d",
+    "results": 1,
+    "page": 1,
+    "version": "1.3"
+  }
+}
+```
+>Notice the difference between the two and the effect of the filter
+
+Create a file called **learnjq.json** and use jq to prettify it
+```sh 
+cat > learnjq.json << EOL
+[{"details":{"name": "AWS","url": "www.amazon.com"},"services": [{"type": "CI-CD","name": "AWS CodeBuild"},{"type": "Secret management","name": "AWS Secrets Manager"}]},{"details": {"name": "Azure","url": "www.azure.com"},"services": [{"type": "CI-CD","name": "Azure DevOps"},{"type": "Secret management","name": "Azure Key Vault"}]},{"details": {"name": "GCP","url": "www.cloud.google.com"},"services": [{"type": "CI-CD","name": "Cloud Build"},{"type": "Secret management","name": "Secret Manager"}]}]
+EOL
+cat learnjq.json
+jq '.' learnjq.json
+**Command output**
+[
+  {
+  "details": {
+      "name": "AWS",
+      "url": "www.amazon.com"
+    },
+    "services": [
+      {
+        "type": "CI-CD",
+        "name": "AWS CodeBuild"
+      },
+      {
+        "type": "Secret management",
+        "name": "AWS Secrets Manager"
+      }
+    ]
+  },
+  {
+  "details": {
+      "name": "Azure",
+      "url": "www.azure.com"
+    },
+    "services": [
+      {
+        "type": "CI-CD",
+        "name": "Azure DevOps"
+      },
+      {
+        "type": "Secret management",
+        "name": "Azure Key Vault"
+      }
+    ]
+  },
+  {
+  "details": {
+      "name": "GCP",
+      "url": "www.cloud.google.com"
+    },
+    "services": [
+      {
+        "type": "CI-CD",
+        "name": "Cloud Build"
+      },
+      {
+        "type": "Secret management",
+        "name": "Secret Manager"
+      }
+    ]
+  }
+]
+```
+
+### Accessing Properties
+Get the value of details property from the above JSON data.
+If you watch closely our JSON data in learnjq.json is array of JSON data. The JSON data is enclosed inside an array []
+To get value of details we have to iterate over the JSON array and access the property value by passing the .(dot) operator and property name
+```sh
+jq '.[] | .details' learnjq.json
+**Output**
+{
+  "name": "AWS",
+  "url": "www.amazon.com"
+}
+{
+  "name": "Azure",
+  "url": "www.azure.com"
+}
+{
+  "name": "GCP",
+  "url": "www.cloud.google.com"
+}
+```
+Now able to read details property by passing the .(dot) operator and property name.
+Could also chain the property values to access nested objects.
+```sh
+jq '.[] | {name: .details.name, url:.details.url}' learnjq.json
+**Output**
+{
+  "name": "AWS",
+  "url": "www.amazon.com"
+}
+{
+  "name": "Azure",
+  "url": "www.azure.com"
+}
+{
+  "name": "GCP",
+  "url": "www.cloud.google.com"
+}
+```
+
+### Getting jq on JSON Arrays
+We can also access one of the items in the array directly by passing the index.
+For example: If we want to get only Azure result, then we use array index number 1.
+```sh
+jq '.[1] | {name: .details.name, url: .details.url}' learnjq.json
+**Output**
+{
+  "name": "Azure",
+  "url": "www.azure.com"
+}
+```
+If you want to get the result as a single array, then you can also wrap the filter in a square bracket. jq will then collect the data in a single array in the resulting output.
+```sh
+jq '[.[] | {name: .details.name, url: .details.url}]' learnjq.json
+**Output**
+[
+  {
+    "name": "AWS",
+    "url": "www.amazon.com"
+  },
+  {
+    "name": "Azure",
+    "url": "www.azure.com"
+  },
+  {
+    "name": "GCP",
+    "url": "www.cloud.google.com"
+  }
+]
+```
+Next let us try getting services property from learnjq.json data. If you watch closely, the services property is an array. We already know now that to access array, we have to use .[]
+```sh
+jq '.[] | {name: .details.name, url: .details.url, services: .services[]}' learnjq.json
+**Output**
+{
+  "name": "AWS",
+  "url": "www.amazon.com",
+  "services": {
+    "type": "CI-CD",
+    "name": "AWS CodeBuild"
+  }
+}
+{
+  "name": "AWS",
+  "url": "www.amazon.com",
+  "services": {
+    "type": "Secret management",
+    "name": "AWS Secrets Manager"
+  }
+}
+{
+  "name": "Azure",
+  "url": "www.azure.com",
+  "services": {
+    "type": "CI-CD",
+    "name": "Azure DevOps"
+  }
+}
+{
+  "name": "Azure",
+  "url": "www.azure.com",
+  "services": {
+    "type": "Secret management",
+    "name": "Azure Key Vault"
+  }
+}
+{
+  "name": "GCP",
+  "url": "www.cloud.google.com",
+  "services": {
+    "type": "CI-CD",
+    "name": "Cloud Build"
+  }
+}
+{
+  "name": "GCP",
+  "url": "www.cloud.google.com",
+  "services": {
+    "type": "Secret management",
+    "name": "Secret Manager"
+  }
+}
+```
+This produces the service provider twice, therefore we need to wrap **.services** into a single array to get the desired result.
+```sh
+jq '.[] | {name: .details.name, url: .details.url, services: [.services[]]}' learnjq.json
+**Output**
+{
+  "name": "AWS",
+  "url": "www.amazon.com",
+  "services": [
+    {
+      "type": "CI-CD",
+      "name": "AWS CodeBuild"
+    },
+    {
+      "type": "Secret management",
+      "name": "AWS Secrets Manager"
+    }
+  ]
+}
+{
+  "name": "Azure",
+  "url": "www.azure.com",
+  "services": [
+    {
+      "type": "CI-CD",
+      "name": "Azure DevOps"
+    },
+    {
+      "type": "Secret management",
+      "name": "Azure Key Vault"
+    }
+  ]
+}
+{
+  "name": "GCP",
+  "url": "www.cloud.google.com",
+  "services": [
+    {
+      "type": "CI-CD",
+      "name": "Cloud Build"
+    },
+    {
+      "type": "Secret management",
+      "name": "Secret Manager"
+    }
+  ]
+}
+```
+Now we have services grouped under its cloud provider.
+
+### Using jq functions
+**Finding the length**
+The length function can be used to find the length of an array or number of properties on an object.
+```sh 
+jq '.[] | {name: .details.name, servicecount: .services | length}' learnjq.json
+**Output**
+{
+  "name": "AWS",
+  "servicecount": 2
+}
+{
+  "name": "Azure",
+  "servicecount": 2
+}
+{
+  "name": "GCP",
+  "servicecount": 2
+}
+```
+**Selecting Values**
+Select function is also one of the useful function in jq. We can make a selection based on the value of a property
+```sh
+jq '.[] | select(.details.name=="AWS")' learnjq.json
+**Output**
+{
+  "details": {
+    "name": "AWS",
+    "url": "www.amazon.com"
+  },
+  "services": [
+    {
+      "type": "CI-CD",
+      "name": "AWS CodeBuild"
+    },
+    {
+      "type": "Secret management",
+      "name": "AWS Secrets Manager"
+    }
+  ]
+}
+```
+
+###Recap
+1. Looked at some of the basic filtering techniques in jq
+2. Looked at how to read data from the array of objects and read some of the complex JSON structures
+3. Looked at some of the key functions like select , length
+
+How does learning jq help you?
+Most of the security tools give us the output in JSON format. Sometimes as a security engineer, you might need to parse the output data to read certain properties or values from the result set.
+Now that you learned the basics of jq, this can help you read the JSON data and apply filters using jq to read the data you need.
