@@ -60,3 +60,15 @@ Merge to production, Tag for release > Download Artefact > Deploy to Production
 1. A pipeline is a system consisting of one or more stages to continously integrate/delivery/deploy software
 2. A stage (build,test,deploy) is a combination of jobs to achieve goal of a stage
 3. Jobs in a stage are run in parallel and on success, the pipeline moves on to the next stage. If one of the jobs fails, the next stage is not (usually)  executed
+
+## Shared gitlab runners vs Dedicated gitlab runners?
+CI/CD systems are built on client and server architecture. There is a server(master) component which oversees projects, manages jobs and delegates job(s) to respective clients(runners).
+Runners (clients) takes care of running the job(s) and reporting back the status of the job. Runners (also known as slaves) can be shared among different projects or very specific to a project.
+### Shared Runners
+Shared runners run jobs which are generic in nature or not tied to a particular environment. By default, runners are shared unless you make them specific to a particular job.
+### Dedicated Runners
+Dedicated runners/slaves are an important concept from a DevSecOps Engineer's perspective as it will allow us to delegate security scans to a particular runner.
+For example, most security tools like Checkmarx, Fortify are hardware bound(tied to Mac/CPU etc.,) and can't be moved easily to a different system. So if you want to run a scan on a specific hardware tied slave, you have to use a dedicated runner.
+Dedicated runners can also be categorised based on programming languages(python, ruby, java), build tools (docker) and available hardware resources(RAM, CPU, HDD).
+
+
