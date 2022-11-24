@@ -309,6 +309,7 @@ nikto:
   artifacts:
     paths: [nikto-output.xml]
     when: always
+    allow_failure: true
 
 sslscan:
   stage: integration
@@ -318,6 +319,7 @@ sslscan:
   artifacts:
     paths: [sslyze-output.json]
     when: always
+    allow_failure: true
 
 nmap:
   stage: integration
