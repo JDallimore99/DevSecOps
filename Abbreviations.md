@@ -1,1 +1,8 @@
-- --quiet/--q
+- --quiet/-q: an hide the output 
+- -d: run a container in the background
+- -interactive/-i: keep the container running
+- rm: remove
+- ps: list
+- exec: execute command inside container
+- -a: container status
+- 
