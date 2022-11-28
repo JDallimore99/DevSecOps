@@ -23,3 +23,7 @@ Define the rule clause to specify under what rules the job should be executed, e
 - **rules: -exists**
 
 Specifies that a job will run if something exists. This can be either a specific file or a glob pattern (match multiple files in a directory)
+
+
+
+> Predefined variable reference: https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
