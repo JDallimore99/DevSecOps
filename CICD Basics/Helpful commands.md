@@ -28,6 +28,6 @@ Specifies that a job will run if something exists. This can be either a specific
 
 Logging into product machine using ssh in terminal 
 - **cat /root.ssh/id_rsa**
-- 
 
+Command to produce the private key
 > Predefined variable reference: https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
