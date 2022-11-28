@@ -14,3 +14,6 @@ Give the path of the scan result files that need to be stored
 - **when: manual**
 
 We can enforce a human intervention (click the play button in Gitlab) to run a job (deployment).
+- **rules: -if**
+
+If something is changed, the pipeline will kickstart. Other than that, you can also use any expressions like (==, !=, =~, ~=) and conjunction/disjunction like (&&, ||) then combine them with the help of predefined variables from GitLab to make your CI/CD workflow.
