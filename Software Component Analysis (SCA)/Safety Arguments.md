@@ -9,6 +9,6 @@ Usage: safety check [OPTIONS]
 |--stdin||
 |--r, --file FILENAME||
 |-i, --ignore TEXT||
-|-o, --output [screen|text|json|bare]||
+|-o, --output (screen|text|json|bare)||
 |||
 |||
