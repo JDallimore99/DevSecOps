@@ -9,13 +9,13 @@ Usage: retire [options]
 |-v, --verbose|Show identified files (by default only vulnerable files are shown)|
 |-x, --dropexternal|Don't include project provided vulnerability repository|
 |-c, --nocache| Don't use local cache|
-|--jspath <path>|Folder to scan for javascript files|
-|--nodepath <path>|Folder to scan for node files|
+|--jspath <path >|Folder to scan for javascript files|
+|--nodepath <path >|Folder to scan for node files|
 |--path <path>|Folder to scan for both|
 |--jsrepo <path/url>|Local or internal version of repo|
 |--noderepo <path/url>|Local or internal version of repo|
-|--cachedir <path>|Path to use for local cache instead of /tmp/.retire-cache|
-|--proxy <url>|Proxy url (http://some.sever:8080)|
+|--cachedir <path >|Path to use for local cache instead of /tmp/.retire-cache|
+|--proxy <url >|Proxy url (http://some.sever:8080)|
 |--outputformat <format>|Valid formats: text, json, jsonsimple, depcheck (experimental) and cyclonedx|
 |--outputpath <path>|File to which output should be written|
 |--ignore <paths>|Comma delimited list of paths to ignore|
