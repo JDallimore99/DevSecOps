@@ -27,3 +27,15 @@ Install deb packages on Ubuntu, Debian, and related Linux distributions.
 - **npm install**
 
 This command installs a package, and any packages that it depends on. If the package has a package-lock or shrinkwrap file, the installation of dependencies will be driven by that, with an npm-shrinkwrap.json taking precedence if both files exist. 
+- **--outputpath**
+
+flag specifies the output file path
+- **--outputformat**
+
+flag specifies the output format
+- **| jq**
+
+The JQ command is used to transform JSON data into a more readable format and print it to the standard output on Linux. The JQ command is built around filters which are used to find and print only the required data from a JSON file.
+- **--severity**
+
+Specify the bug severity level from which the process fails. Allowed levels none, low, medium, high,
