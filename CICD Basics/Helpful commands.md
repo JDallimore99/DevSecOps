@@ -24,6 +24,10 @@ Define the rule clause to specify under what rules the job should be executed, e
 
 Specifies that a job will run if something exists. This can be either a specific file or a glob pattern (match multiple files in a directory)
 
+- **ssh root@prod...**
 
+Logging into product machine using ssh in terminal 
+- **cat /root.ssh/id_rsa**
+- 
 
 > Predefined variable reference: https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
