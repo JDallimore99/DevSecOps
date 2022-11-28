@@ -11,3 +11,6 @@ We can set the amount of time to store the file
 - **paths:**
 
 Give the path of the scan result files that need to be stored
+- **when: manual**
+
+We can enforce a human intervention (click the play button in Gitlab) to run a job (deployment).
