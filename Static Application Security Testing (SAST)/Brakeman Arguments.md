@@ -43,6 +43,34 @@ Scanning options
 |-t, --test Check1,Check2,etc||
 |-x, --except Check1,Check2,etc||
 |--add-checks-path path1,path2,etc||
-|||
-|||
 
+Output Options:
+|Name|Description|
+|:---|:---|
+|-d, --debug||
+|-f, --format TYPE||
+|--css-file CSSFile||
+|-i, --ignore-config IGNOREFILE||
+|-I, --interactive-ignore||
+|l, --[no-]combine-locations||
+|--[no-]highlights||
+|--[no-]color||
+|-m, ---routes||
+|--message-limit LENGTH||
+|--[no-]pager||
+|--table-width WIDTH||
+|-o, --output FILE||
+|--[no-]seperate-models||
+|--[no-]summary||
+|--absolute-paths||
+|--github-repo USER/REPO[/PATH][@REF]||
+|--text-fields fields1,fields2,etc||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
