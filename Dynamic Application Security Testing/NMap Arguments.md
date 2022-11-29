@@ -107,6 +107,8 @@ FIREWALL/IDS EVASION AND SPOOFING:
 |--badsum: Send packets with a bogus TCP/UDP/SCTP checksum|
 
 OUTPUT:
+|Argument|Description|
+|:---|:----|
 |-oN/-oX/-oS/-oG <file>:|Output scan in normal, XML, sc<rIpt kIddi3, and Grepable format, respectively, to the given filename.|
 |-oA <basename>:|Output in the three major formats at once|
 |-v:|Increase verbosity level (use -vv or more for greater effect)|
