@@ -431,6 +431,18 @@ Save changes to the file using the Commit changes button.
 |DOJO_API_TOKEN|DOJO_API_TOKEN|
 |DOJO_HOST|dojo-acsrq8h9.lab.practical-devsecops.training|
 
+## Files needed
+ansible-hardening.yml
+```sh
+---
+- name: Playbook to harden ubuntu OS.
+  hosts: prod
+  remote_user: root
+  become: yes
+
+  roles:
+    - dev-sec.os-hardening
+```
 ### Verify the pipeline run
 As soon as a change is made to the repository, the pipeline starts executing the jobs.
 
