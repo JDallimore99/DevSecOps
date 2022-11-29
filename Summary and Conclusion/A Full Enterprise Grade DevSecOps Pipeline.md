@@ -189,6 +189,7 @@ inspec:
   artifacts:
     paths: [inspec-output.json]
     when: always
+  allow_failure: true
 ```
 ### Vulnerability Management
 ```sh
@@ -341,7 +342,7 @@ zap-baseline:
   artifacts:
     paths: [zap-output.json]
     when: always # What does this do?
-  allow_failure: false
+  allow_failure: true
 
 # Infrastructure as Code
 # PLEASE ENSURE YOU HAVE SETUP THE ENVIRONMENT VARIABLES AND NEEDED FILES APPROPRIATELY
@@ -379,6 +380,7 @@ inspec:
   artifacts:
     paths: [inspec-output.json]
     when: always
+  allow_failure: true
 
 # Vulnerability Management(VM)
 sast-with-vm:
@@ -395,6 +397,7 @@ sast-with-vm:
     paths: [bandit-output.json]
     when: always
   allow_failure: true
+ 
 dast-zap:
   stage: integration
   before_script:
@@ -408,6 +411,7 @@ dast-zap:
     paths: [zap-output.xml]
     when: always
     expire_in: 1 day
+  allow_failure: true
 ```
 Make sure you have added the necessary variables into your project (Settings > CI/CD) such as $DOJO_HOST, and $DOJO_API_TOKEN. Otherwise, your results are not uploaded to DefectDojo in the sast-with-vm job.
 > Note: Need to complete the push actions for the git repository as seen in Vulnerability Management to allow for the job not to fail
