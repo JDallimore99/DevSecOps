@@ -94,4 +94,4 @@
 |-useproxy||Use the proxy defined in nikto.conf, or argument http://server:port|
 |-Version||Print plugin and database versions|
 |-vhost+||Virtual host (for Host header)|
-+ requires a value
++ +requires a value
