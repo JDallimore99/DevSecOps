@@ -266,6 +266,7 @@ sca-frontend:
     paths: [retirejs-report.json]
     when: always # What is this for?
     expire_in: one week
+  allow_failure: true
 
 sca-backend:
   stage: build
