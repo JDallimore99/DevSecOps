@@ -48,7 +48,7 @@ PORT SPECIFICATION AND SCAN ORDER:
 |--port-ratio <ratio>:| Scan ports more common than <ratio>|
 
 SERVICE/VERSION DETECTION:
-Argument|Description|
+|Argument|Description|
 |:---|:----|
 |-sV:|Probe open ports to determine service/version info|
 |--version-intensity <level>:|Set from 0 (light) to 9 (try all probes)|
@@ -75,6 +75,7 @@ OS DETECTION:
 |--osscan-guess:|Guess OS more aggressively|
 
 TIMING AND PERFORMANCE:
+
 Options which take <time> are in seconds, or append 'ms' (milliseconds), 's' (seconds), 'm' (minutes), or 'h' (hours) to the value (e.g. 30m).
 |Argument|Description|
 |:---|:----|
