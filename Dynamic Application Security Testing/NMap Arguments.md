@@ -46,22 +46,25 @@ PORT SPECIFICATION AND SCAN ORDER:
 |--port-ratio <ratio>:| Scan ports more common than <ratio>|
 
 SERVICE/VERSION DETECTION:
-  -sV: Probe open ports to determine service/version info
-  --version-intensity <level>: Set from 0 (light) to 9 (try all probes)
-  --version-light: Limit to most likely probes (intensity 2)
-  --version-all: Try every single probe (intensity 9)
-  --version-trace: Show detailed version scan activity (for debugging)
+Argument|Description|
+|:---|:----|
+|-sV:|Probe open ports to determine service/version info|
+|--version-intensity <level>:|Set from 0 (light) to 9 (try all probes)|
+|--version-light:|Limit to most likely probes (intensity 2)|
+|--version-all:|Try every single probe (intensity 9)|
+|--version-trace:|Show detailed version scan activity (for debugging)|
+
 SCRIPT SCAN:
-  -sC: equivalent to --script=default
-  --script=<Lua scripts>: <Lua scripts> is a comma separated list of
-           directories, script-files or script-categories
-  --script-args=<n1=v1,[n2=v2,...]>: provide arguments to scripts
-  --script-args-file=filename: provide NSE script args in a file
-  --script-trace: Show all data sent and received
-  --script-updatedb: Update the script database.
-  --script-help=<Lua scripts>: Show help about scripts.
-           <Lua scripts> is a comma-separated list of script-files or
-           script-categories.
+|Argument|Description|
+|:---|:----|
+|-sC:|equivalent to --script=default|
+|--script=<Lua scripts>:|<Lua scripts> is a comma separated list of directories, script-files or script-categories|
+|--script-args=<n1=v1,[n2=v2,...]>:|provide arguments to scripts|
+|--script-args-file=filename:|provide NSE script args in a file|
+|--script-trace:|Show all data sent and received|
+|--script-updatedb:|Update the script database.|
+|--script-help=<Lua scripts>:|Show help about scripts. <Lua scripts> is a comma-separated list of script-files or script-categories.|
+
 OS DETECTION:
   -O: Enable OS detection
   --osscan-limit: Limit OS detection to promising targets
