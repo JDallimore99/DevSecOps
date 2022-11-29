@@ -425,6 +425,7 @@ git clone http://root:pdso-training@gitlab-ce-acsrq8h9.lab.practical-devsecops.t
 cd django-nv
 git add upload-results.py
 git commit -m "Add upload-results.py file"
+git push origin master
 ```
 Save changes to the file using the Commit changes button.
 ## Variables Needed
