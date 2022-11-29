@@ -1,5 +1,6 @@
 Nmap 7.60 ( https://nmap.org )
 Usage: nmap [Scan Type(s)] [Options] {target specification}
+
 TARGET SPECIFICATION:
 Can pass hostnames, IP addresses, networks, etc.
 Ex: scanme.nmap.org, microsoft.com/24, 192.168.0.1; 10.0.0-255.1-254
@@ -9,34 +10,41 @@ Ex: scanme.nmap.org, microsoft.com/24, 192.168.0.1; 10.0.0-255.1-254
 |-iR <num hosts>:| Choose random targets|
 |--exclude <host1[,host2][,host3],...>:|Exclude hosts/networks|
 |--excludefile <exclude_file>:| Exclude list from file|
+
 HOST DISCOVERY:
--sL: List Scan - simply list targets to scan
-  -sn: Ping Scan - disable port scan
-  -Pn: Treat all hosts as online -- skip host discovery
-  -PS/PA/PU/PY[portlist]: TCP SYN/ACK, UDP or SCTP discovery to given ports
-  -PE/PP/PM: ICMP echo, timestamp, and netmask request discovery probes
-  -PO[protocol list]: IP Protocol Ping
-  -n/-R: Never do DNS resolution/Always resolve [default: sometimes]
-  --dns-servers <serv1[,serv2],...>: Specify custom DNS servers
-  --system-dns: Use OS's DNS resolver
-  --traceroute: Trace hop path to each host
+Argument|Description|
+|:---|:----|
+|-sL:|List Scan - simply list targets to scan|
+|-sn:|Ping Scan - disable port scan|
+|-Pn:|Treat all hosts as online -- skip host discovery|
+|-PS/PA/PU/PY[portlist]:|TCP SYN/ACK, UDP or SCTP discovery to given ports|
+|-PE/PP/PM:|ICMP echo, timestamp, and netmask request discovery probes|
+|-PO[protocol list]:|IP Protocol Ping|
+|-n/-R:| Never do DNS resolution/Always resolve [default: sometimes]|
+|--dns-servers <serv1[,serv2],...>:|Specify custom DNS servers|
+|--system-dns:|Use OS's DNS resolver|
+|--traceroute:|Trace hop path to each host|
+
 SCAN TECHNIQUES:
-  -sS/sT/sA/sW/sM: TCP SYN/Connect()/ACK/Window/Maimon scans
-  -sU: UDP Scan
-  -sN/sF/sX: TCP Null, FIN, and Xmas scans
-  --scanflags <flags>: Customize TCP scan flags
-  -sI <zombie host[:probeport]>: Idle scan
-  -sY/sZ: SCTP INIT/COOKIE-ECHO scans
-  -sO: IP protocol scan
-  -b <FTP relay host>: FTP bounce scan
+Argument|Description|
+|:---|:----|
+|-sS/sT/sA/sW/sM:|TCP SYN/Connect()/ACK/Window/Maimon scans|
+|-sU:|UDP Scan|
+|-sN/sF/sX:|TCP Null, FIN, and Xmas scans|
+|--scanflags <flags>:|Customize TCP scan flags|
+|-sI <zombie host[:probeport]>:| Idle scan|
+|-sY/sZ:| SCTP INIT/COOKIE-ECHO scans|
+|-sO:|IP protocol scan|
+|-b <FTP relay host>:|FTP bounce scan|
+  
 PORT SPECIFICATION AND SCAN ORDER:
-  -p <port ranges>: Only scan specified ports
-    Ex: -p22; -p1-65535; -p U:53,111,137,T:21-25,80,139,8080,S:9
-  --exclude-ports <port ranges>: Exclude the specified ports from scanning
-  -F: Fast mode - Scan fewer ports than the default scan
-  -r: Scan ports consecutively - don't randomize
-  --top-ports <number>: Scan <number> most common ports
-  --port-ratio <ratio>: Scan ports more common than <ratio>
+|-p <port ranges>:|Only scan specified ports Ex: -p22; -p1-65535; -p U:53,111,137,T:21-25,80,139,8080,S:9|
+|--exclude-ports <port ranges>:|Exclude the specified ports from scanning|
+|-F:|Fast mode - Scan fewer ports than the default scan|
+|-r:|Scan ports consecutively - don't randomize|
+|--top-ports <number>:|Scan <number> most common ports|
+|--port-ratio <ratio>:| Scan ports more common than <ratio>|
+
 SERVICE/VERSION DETECTION:
   -sV: Probe open ports to determine service/version info
   --version-intensity <level>: Set from 0 (light) to 9 (try all probes)
