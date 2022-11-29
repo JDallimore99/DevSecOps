@@ -1,3 +1,4 @@
+Usage: brakeman [options] rails/root/path
 |Name|Description|
 |:---|:---|
 |-n, --no-threads|Run checks and file parsing sequentially|
