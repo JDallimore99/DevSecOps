@@ -46,35 +46,35 @@ Scanning options
 Output Options:
 |Name|Description|
 |:---|:---|
-|-d, --debug||
-|-f, --format TYPE||
-|--css-file CSSFile||
-|-i, --ignore-config IGNOREFILE||
-|-I, --interactive-ignore||
-|l, --[no-]combine-locations||
-|--[no-]highlights||
-|--[no-]color||
-|-m, ---routes||
-|--message-limit LENGTH||
-|--[no-]pager||
-|--table-width WIDTH||
-|-o, --output FILE||
-|--[no-]seperate-models||
-|--[no-]summary||
-|--absolute-paths||
-|--github-repo USER/REPO[/PATH][@REF]||
-|--text-fields fields1,fields2,etc||
-|-w, --confidence-level LEVEL||
-|--compare FILE||
+|-d, --debug|Lots of output|
+|-f, --format TYPE|Specify output formats. Default is text|
+|--css-file CSSFile|Specify CSS to use for HTML output|
+|-i, --ignore-config IGNOREFILE|Use configuration to ignore warnings|
+|-I, --interactive-ignore|Interactively ignore warnings|
+|l, --[no-]combine-locations|Combine warning locations (Default)|
+|--[no-]highlights|Highlight user input in report|
+|--[no-]color|Use ANSI colors in report (Default)|
+|-m, ---routes|Report controller information|
+|--message-limit LENGTH|Limit message length in HTML report|
+|--[no-]pager|Use pager for output to terminal (Default)|
+|--table-width WIDTH|Limit table width in text report|
+|-o, --output FILE|Specify files for output. Defaults to stdout. Multiple '-o's allowed|
+|--[no-]seperate-models|Warn on each model without attr_accessible (Default)|
+|--[no-]summary|Only output summary of warnings|
+|--absolute-paths|Output absolute file paths in reports|
+|--github-repo USER/REPO[/PATH][@REF]|Output links to GitHub in markdown and HTML reports using specified repo|
+|--text-fields fields1,fields2,etc|Specify fields for text report format|
+|-w, --confidence-level LEVEL|Set minimal confidence level (1 - 3)|
+|--compare FILE|Compare the results of a previous Brakeman scan (only JSON is supported)|
 
 Configuration Files:
 |Name|Description|
 |:---|:---|
-|-c, --cinfig-file FILE||
-|-C, --create-config [FILE]||
-|--allow-check-paths-in-config||
-|-k, --checks||
-|--optional-checks||
-|-v, --version||
-|--force-scan||
-|-h, --help||
+|-c, --cinfig-file FILE|Use specified configuration file|
+|-C, --create-config [FILE]|Output configuration file based on options|
+|--allow-check-paths-in-config|Allow loading checks from configuration file (Unsafe)|
+|-k, --checks|List all available vulnerability checks|
+|--optional-checks|List optional checks|
+|-v, --version|Show Brakeman version|
+|--force-scan|Scan application even if rails is not detected|
+|-h, --help|Display help message|
