@@ -6,7 +6,7 @@
 ||auto|Don't ask, just send|
 |-Cgidirs+||Scan these CGI dirs: "none", "all", or values like "/cgi/ /cgi-a/"|
 |-config+||Use this config file|
-|-Display+||Turn on/off display outputs|
+|-Display+|Turn on/off display outputs:||
 ||1|Show redirects|
 ||2|Show cookes received|
 ||3|Show all 200/OK responses|
