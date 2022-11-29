@@ -22,15 +22,14 @@ Commands:
 Options:
 |Argument|Description|
 |:----|:----|
-|l, [--log-level=LOG_LEVEL]                       # Set the log level: info (default), debug, warn, error
-|[--log-location=LOG_LOCATION]                  # Location to send diagnostic log messages to. (default: $stdout or Inspec::Log.error)
-|[--diagnose], [--no-diagnose]                  # Show diagnostics (versions, configurations)
-|[--color], [--no-color]                        # Use colors in output.
-|[--interactive], [--no-interactive]            # Allow or disable user interaction
-|[--disable-user-plugins]                       # Disable loading all plugins that the user installed.
-|[--enable-telemetry], [--no-enable-telemetry]  # Allow or disable telemetry
-|[--chef-license=CHEF_LICENSE]                  # Accept the license for this product and any contained products: accept, accept-no-persist, accept-silent
-
+|l, [--log-level=LOG_LEVEL]|# Set the log level: info (default), debug, warn, error|
+|[--log-location=LOG_LOCATION]|# Location to send diagnostic log messages to. (default: $stdout or Inspec::Log.error)|
+|[--diagnose], [--no-diagnose]|# Show diagnostics (versions, configurations)|
+|[--color], [--no-color]|# Use colors in output.|
+|[--interactive], [--no-interactive]|# Allow or disable user interaction|
+|[--disable-user-plugins]|# Disable loading all plugins that the user installed.|
+|[--enable-telemetry], [--no-enable-telemetry]|# Allow or disable telemetry|
+|[--chef-license=CHEF_LICENSE]|# Accept the license for this product and any contained products: accept, accept-no-persist, accept-silent|
 
 About Chef InSpec:
   Patents: chef.io/patents
