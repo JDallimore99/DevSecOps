@@ -413,6 +413,8 @@ Make sure you have added the necessary variables into your project (Settings > C
 > Note: Need to complete the push actions for the git repository as seen in Vulnerability Management to allow for the job not to fail
 
 ```sh
+curl https://gitlab.practical-devsecops.training/-/snippets/3/raw -o upload-results.py
+pip3 install requests
 git config --global user.email "student@pdevsecops.com"
 git config --global user.name "student"
 git clone http://root:pdso-training@gitlab-ce-acsrq8h9.lab.practical-devsecops.training/root/django-nv.git
