@@ -309,7 +309,7 @@ nikto:
   artifacts:
     paths: [nikto-output.xml]
     when: always
-    allow_failure: true
+  allow_failure: true
 
 sslscan:
   stage: integration
@@ -319,7 +319,7 @@ sslscan:
   artifacts:
     paths: [sslyze-output.json]
     when: always
-    allow_failure: true
+  allow_failure: true
 
 nmap:
   stage: integration
@@ -393,7 +393,20 @@ sast-with-vm:
   artifacts:
     paths: [bandit-output.json]
     when: always
-    allow_failure: true
+  allow_failure: true
+dast-zap:
+  stage: integration
+  before_script:
+    - apk add py-pip py-requests
+    - docker pull owasp/zap2docker-stable:2.10.0
+  script:
+    - docker run --user $(id -u):$(id -g) -w /zap -v $(pwd):/zap/wrk:rw --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-acsrq8h9.lab.practical-devsecops.training -d -x zap-output.xml
+  after_script:
+    - python3 upload-results.py --host $DOJO_HOST --api_key $DOJO_API_TOKEN --engagement_id 1 --product_id 1 --lead_id 1 --environment "Production" --result_file zap-output.xml --scanner "ZAP Scan"
+  artifacts:
+    paths: [zap-output.xml]
+    when: always
+    expire_in: 1 day
 ```
 Make sure you have added the necessary variables into your project (Settings > CI/CD) such as $DOJO_HOST, and $DOJO_API_TOKEN. Otherwise, your results are not uploaded to DefectDojo in the sast-with-vm job.
 > Note: Need to complete the push actions for the git repository as seen in Vulnerability Management to allow for the job not to fail
