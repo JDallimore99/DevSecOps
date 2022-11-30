@@ -11,7 +11,7 @@
 |nano|Text editor|```nano myfile```|
 |cat|Reads the content of a file and displays as output|```cat myfile```|
 |mv|Rename a file|```mv myfile newfile```|
-|cat >|Create a file in a non-interactive way using command line magic:\ 1. The filename, here its filename, 2. The here document, the << symbols are a special code block. It allows you to redirect anything between EOL into a command, 3. The cat command, if it’s followed by >, allows you to create a file|```cat > filename <<EOL
+|cat >|Create a file in a non-interactive way using command line magic:\\ 1. The filename, here its filename, 2. The here document, the << symbols are a special code block. It allows you to redirect anything between EOL into a command, 3. The cat command, if it’s followed by >, allows you to create a file|```cat > filename <<EOL
 
 Some text content
 Some text content 2
