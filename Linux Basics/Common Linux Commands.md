@@ -31,3 +31,14 @@
 |git clone|Download the git repository to a local machine|```git clone http://root:pdso-training@gitlab-ce-acsrq8h9.lab.practical-devsecops.training/root/django-nv.git```|
 |git status|Check the status of the repository (what files are added, modified, removed|```git status```|
 |git add|Add files to the repository|```git add myfile README.md```|
+|git commit|Commit files to the repository|```git commit -m "Add myfile and update README.md"```|
+|-m|Is a comment REQUIRED while commiting changes to Git|```git commit -m "Add myfile and update README.md"```|
+|git push|Push the local changes to the remote git repository|```git push```|
+|git pull|Pull/download these changes using the git pull command|```git pull```|
+|ssh|Login to a remote machine|```ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/id_rsa root@prod-acsrq8h9```|
+|ssh-keyscan|Utility for gathering the public SSH host keys of a number of hosts|```ssh-keyscan -t rsa prod-acsrq8h9 >> ~/.ssh/known_hosts```|
+|hostname|Verify we are in the remote machine|```hostname```|
+|ssh root@[prod machine]|Run commands remotely, anything in quotes is run on the remote machine|```ssh root@prod-acsrq8h9 "hostname"```|
+|ssh restart|Restart the ssh server is required|```/etc/init.d/sshd restart```|
+|ssh-keygen|Generates a new public-private|```ssh-keygen -t rsa```|
+|ssh-copy-id|Helps in copying public keys to the authorized_keys file|```ssh-copy-id -i ~/.ssh/id_rsa.pub user@targetserver```|
