@@ -45,3 +45,6 @@
 |jq|Pipe to jq|```echo '{"cloudprovider":{"name":"AWS","url":"www.aws.com"}} ' \| jq '.'```|
 |curl|command line tool that enables data transfer over various network protocols. It communicates with a web or application server by specifying a relevant URL and the data that need to be sent or received|```curl https://randomuser.me/api/```|
 |jq '.'|Used to prettify a JSON file|```curl https://randomuser.me/api/ \| jq '.'```|
+|vi|Used to access the visual editor|```vi security-report.json```|
+|:q|Exits the vi editor|```:q```|
+|/|Used for searching in vi editor|```/High```|
