@@ -18,4 +18,4 @@
 |-d|Delimeter flag|```cut -d ':' -f 1```|
 |-f|Field option|```cut -d ':' -f 1```|
 |ps|Get a list of running processes|```ps -aux```|
-|grep|Identify a particular process|```ps -aux | grep bash```|
+|grep|Identify a particular process|```ps -aux \| grep bash```|
