@@ -18,3 +18,6 @@
 |docker images|See the docker image|```docker images```|
 |dockre tags|Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE|```docker tag django.nv:1.0 django.nv:1.1```
 |docker rmi|Remove docker image|```docker rmi django.nv:1.0```|
+|docker volume|Manage docker volumes|```docker volume --help```|
+|docker volume create|Create a volume|```docker volume create demo```|
+| -v /opt:/opt|Bind mounts have been around since the early days of Docker. Bind mounts have limited functionality compared to volumes. When you use a bind mount, a file or directory on the host machine is mounted into a container. The file or directory is referenced by its absolute path on the host machine.|```docker run --name ubuntu2 -d -v /opt:/opt -it ubuntu:18.04```|
