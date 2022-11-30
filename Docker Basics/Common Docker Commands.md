@@ -14,3 +14,5 @@
 |-p|Bind container port to all IP addresses on the host|```docker run -d --name=webserver --env APP=nginx -p 80:80 nginx:1.21.3```|
 |--name|Names a container|```docker run -d --name webserver --env APP=nginx nginx:1.21.3```|
 |-e, --env|Sets the environment variables|```docker run -d --name webserver --env APP=nginx nginx:1.21.3```|
+|docker build|Create a docker image|```docker build -t django.nv:1.0 .```|
+|docker images|See the docker image|```docker images```|
