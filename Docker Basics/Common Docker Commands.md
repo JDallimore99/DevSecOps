@@ -20,4 +20,16 @@
 |docker rmi|Remove docker image|```docker rmi django.nv:1.0```|
 |docker volume|Manage docker volumes|```docker volume --help```|
 |docker volume create|Create a volume|```docker volume create demo```|
-| -v /opt:/opt|Bind mounts have been around since the early days of Docker. Bind mounts have limited functionality compared to volumes. When you use a bind mount, a file or directory on the host machine is mounted into a container. The file or directory is referenced by its absolute path on the host machine.|```docker run --name ubuntu2 -d -v /opt:/opt -it ubuntu:18.04```|
+|-v /opt:/opt|Bind mounts have been around since the early days of Docker. Bind mounts have limited functionality compared to volumes. When you use a bind mount, a file or directory on the host machine is mounted into a container. The file or directory is referenced by its absolute path on the host machine.|```docker run --name ubuntu2 -d -v /opt:/opt -it ubuntu:18.04```|
+|tmpfs|This tmpfs mount will not save the data persistently as it uses host’s memory(RAM) as a temporary storage.||
+|registry|Store docker images in a docker repository|```docker run -d -p 5000:5000 --restart=always --name registry registry:2```|
+|docker network|networking in docker||
+|docker network create|Create a new docker network|```docker network create mynetwork```|
+|docker inspect|Explore more details about the network e.g. subnet aand gateway assigned|```docker inspect mynetwork```|
+|--network|attach the network to a container|```docker run -d --name ubuntu --network mynetwork -it ubuntu:18.04```|
+|connect|Connect a pre-existing container to a netowrk|
+|apt update|Test the network connectivity in the container|```docker exec ubuntu apt update```|
+|--driver|Create a known network such as macvlan|```docker network create --driver macvlan mymacvlan```|
+|none|Isolates/disable the network in the containers|```docker run -d --name ubuntu --network=none -it ubuntu:18.04docker run -d --name ubuntu --network=none -it ubuntu:18.04```|
+|service|Start the service|```service nginx start```|
+|apt install|install utilities and commands|```apt install curl -y```|
