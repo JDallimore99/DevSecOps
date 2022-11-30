@@ -17,25 +17,27 @@ Options:
   -v, --version            Print version information and quit
 
 Management Commands:
-  app*        Docker App (Docker Inc., v0.9.1-beta3)
-  builder     Manage builds
-  buildx*     Build with BuildKit (Docker Inc., v0.6.3-docker)
-  compose*    Docker Compose (Docker Inc., v2.12.2)
-  config      Manage Docker configs
-  container   Manage containers
-  context     Manage contexts
-  image       Manage images
-  manifest    Manage Docker image manifests and manifest lists
-  network     Manage networks
-  node        Manage Swarm nodes
-  plugin      Manage plugins
-  secret      Manage Docker secrets
-  service     Manage services
-  stack       Manage Docker stacks
-  swarm       Manage Swarm
-  system      Manage Docker
-  trust       Manage trust on Docker images
-  volume      Manage volumes
+|Command|Description|
+|:---|:-----|
+|app*|Docker App (Docker Inc., v0.9.1-beta3)|
+|builder|Manage builds|
+|buildx*|Build with BuildKit (Docker Inc., v0.6.3-docker)|
+  |compose*    |Docker Compose (Docker Inc., v2.12.2)|
+  |config      |Manage Docker configs|
+  |container   |Manage containers|
+  |context     |Manage contexts|
+  |image       |Manage images|
+  |manifest    |Manage Docker image manifests and manifest lists|
+  |network     |Manage networks|
+  |node        |Manage Swarm nodes|
+  |plugin      |Manage plugins|
+  |secret      |Manage Docker secrets|
+  |service     |Manage services|
+  |stack       |Manage Docker stacks|
+  |swarm       |Manage Swarm|
+  |system      |Manage Docker|
+  |trust       |Manage trust on Docker images|
+  |volume      |Manage volumes|
 
 Commands:
   attach      Attach local standard input, output, and error streams to a running container
