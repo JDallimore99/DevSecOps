@@ -1,7 +1,7 @@
 # Helpful SCA commands
-|Command|Description|
-|:---|:-----|
-|git clone|Used for donwloading source code in terminal|
+|Command|Description|Example|
+|:---|:-----|:---|
+|git clone|Used for donwloading source code in terminal|```git clone https://gitlab.practical-devsecops.training/pdso/django.nv webapp```|
 |pip3 install||Install safety tools|
 |-r|Flag used to specify the input file|
 |--json|Flag tells that output should be in the json format|
