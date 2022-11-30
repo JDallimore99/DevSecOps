@@ -25,3 +25,9 @@
 |sudo|Run a command with root priveleges|```sudo ls```|
 |--gecos|The gecos field, or GECOS field is a field in each record in the /etc/passwd file on Unix and similar operating systems.|```echo -e "pdevsecops\npdevsecops" \| adduser --gecos "" john```|
 |usermod|Add user to a sudo group|```usermod -aG sudo john```|
+|echo $?|Return an exit code|```echo $?```|
+|touch|Create new file|```touch newfile```|
+|git config|Create usernames and emails to work with git repositories|```git config --global user.email "student@pdevsecops.com"```|
+|git clone|Download the git repository to a local machine|```git clone http://root:pdso-training@gitlab-ce-acsrq8h9.lab.practical-devsecops.training/root/django-nv.git```|
+|git status|Check the status of the repository (what files are added, modified, removed|```git status```|
+|git add|Add files to the repository|```git add myfile README.md```|
