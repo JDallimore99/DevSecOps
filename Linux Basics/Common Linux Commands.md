@@ -23,5 +23,5 @@
 |stat|Verify permissions|```stat myfile```|
 |chmod|Give file executable permissions|```chmod +x myfile```|
 |sudo|Run a command with root priveleges|```sudo ls```|
-|--gecos|The gecos field, or GECOS field is a field in each record in the /etc/passwd file on Unix and similar operating systems.|```echo -e "pdevsecops\npdevsecops" | adduser --gecos "" john```|
+|--gecos|The gecos field, or GECOS field is a field in each record in the /etc/passwd file on Unix and similar operating systems.|```echo -e "pdevsecops\npdevsecops" \| adduser --gecos "" john```|
 |usermod|Add user to a sudo group|```usermod -aG sudo john```|
