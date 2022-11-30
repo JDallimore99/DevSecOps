@@ -48,3 +48,5 @@
 |vi|Used to access the visual editor|```vi security-report.json```|
 |:q|Exits the vi editor|```:q```|
 |/|Used for searching in vi editor|```/High```|
+|d|Used to delete lines/text in vi editor|```d```|
+|nano|Open nano editor|```nano security-report.json```|
