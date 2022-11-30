@@ -10,6 +10,6 @@
 |rules: -changed|Define the rule clause to specify under what rules the job should be executed, e.g. a job named build should only run when a file named Dockerfile is changed. So, if you edit the .gitlab-ci.yml file, then copy the above content and save the changes, it won’t execute the pipeline because there was no change to the Dockerfile.|
 |rules: -exists|Specifies that a job will run if something exists. This can be either a specific file or a glob pattern (match multiple files in a directory)|
 |ssh root@prod...|Logging into product machine using ssh in terminal|
-|cat /root.ssh/id_rsa|Command to produce the private key|
+|cat \/root.ssh/id_rsa|Command to produce the private key|
 
 > Predefined variable reference: https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
