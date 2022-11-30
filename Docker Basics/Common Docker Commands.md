@@ -33,3 +33,5 @@
 |none|Isolates/disable the network in the containers|```docker run -d --name ubuntu --network=none -it ubuntu:18.04docker run -d --name ubuntu --network=none -it ubuntu:18.04```|
 |service|Start the service|```service nginx start```|
 |apt install|install utilities and commands|```apt install curl -y```|
+|docker logs| Can use this to view the logs of a docker container|```docker logs custom-nginx-container```|
+|sleep infinity|Used in advanced docker file to prevent Exited status. It tells the container to keep the process alive.|```CMD [";sleep infinity"] EOL```|
