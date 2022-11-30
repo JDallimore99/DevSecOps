@@ -42,4 +42,4 @@
 |ssh restart|Restart the ssh server is required|```/etc/init.d/sshd restart```|
 |ssh-keygen|Generates a new public-private|```ssh-keygen -t rsa```|
 |ssh-copy-id|Helps in copying public keys to the authorized_keys file|```ssh-copy-id -i ~/.ssh/id_rsa.pub user@targetserver```|
-|jq|Pipe to jq|```echo '{"cloudprovider":{"name":"AWS","url":"www.aws.com"}} ' | jq '.'```|
+|jq|Pipe to jq|```echo '{"cloudprovider":{"name":"AWS","url":"www.aws.com"}} ' \| jq '.'```|
