@@ -43,3 +43,5 @@
 |ssh-keygen|Generates a new public-private|```ssh-keygen -t rsa```|
 |ssh-copy-id|Helps in copying public keys to the authorized_keys file|```ssh-copy-id -i ~/.ssh/id_rsa.pub user@targetserver```|
 |jq|Pipe to jq|```echo '{"cloudprovider":{"name":"AWS","url":"www.aws.com"}} ' \| jq '.'```|
+|curl|command line tool that enables data transfer over various network protocols. It communicates with a web or application server by specifying a relevant URL and the data that need to be sent or received|```curl https://randomuser.me/api/```|
+|jq '.'|Used to prettify a JSON file|```curl https://randomuser.me/api/ \| jq '.'```|
