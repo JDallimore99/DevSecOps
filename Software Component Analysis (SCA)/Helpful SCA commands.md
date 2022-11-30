@@ -3,7 +3,7 @@
 |:---|:-----|:---|
 |git clone|Used for donwloading source code in terminal|```git clone https://gitlab.practical-devsecops.training/pdso/django.nv webapp```|
 |pip3 install|Install safety tools|```pip3 install safety==2.1.1```|
-|tee|Show the output and store it in a file simultaneously|```safety check -r requirements.txt --json | tee safety-output.json```|
+|tee|Show the output and store it in a file simultaneously|```safety check -r requirements.txt --json \| tee safety-output.json```|
 |-r|Flag used to specify the input file|
 |--json|Flag tells that output should be in the json format|
 |docker pull|The docker pull command serves for downloading Docker images from a registry. By default, the docker pull command pulls images from Docker Hub, but it is also possible to manually specify the private registry to pull from.|
