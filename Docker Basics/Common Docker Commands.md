@@ -17,3 +17,4 @@
 |docker build|Create a docker image|```docker build -t django.nv:1.0 .```|
 |docker images|See the docker image|```docker images```|
 |dockre tags|Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE|```docker tag django.nv:1.0 django.nv:1.1```
+|docker rmi|Remove docker image|```docker rmi django.nv:1.0```|
