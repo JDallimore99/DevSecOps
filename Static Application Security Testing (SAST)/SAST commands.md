@@ -1,4 +1,4 @@
-# Helfpul SAST commands
+# SAST commands
 |Command|Description|Example|
 |:----|:----|:----|
 |Git clone|Download source code from git repository|```git clone https://gitlab.practical-devsecops.training/pdso/django.nv webapp```|
