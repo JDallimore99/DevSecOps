@@ -18,4 +18,4 @@
 |--outputformat |flag specifies the output format|```retire --outputformat json --outputpath retire_output.json```|
 |\| jq|The JQ command is used to transform JSON data into a more readable format and print it to the standard output on Linux. The JQ command is built around filters which are used to find and print only the required data from a JSON file.|```cat retire_output.json | jq```|
 |--severity|Specify the bug severity level from which the process fails. Allowed levels none, low, medium, high,|```retire --severity high --outputformat json --outputpath retire_output.json```|
-|--ignorefile|
+|--ignorefile|Custom ignore file, defaults to .retireignore / .retireignore.json|```retire --severity high --ignorefile .retireignore.json --outputformat json --outputpath retire_output.json```|
