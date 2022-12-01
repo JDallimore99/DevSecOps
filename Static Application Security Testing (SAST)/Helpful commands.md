@@ -9,4 +9,4 @@
 |apt install|Installs an advanced package|```apt install ruby-full -y```
 |gem install|Used for installing brakeman. It is a ruby command|```gem install brakeman -v 5.2.1```|
 |brakeman|Command to run the brakeman scan on Rails code|```brakeman -f json \| tee result.json```|
-|-i|
+|-i|used to ignore warnings in a scan|```brakeman -f json -i brakeman.ignore \| tee result.json```|
