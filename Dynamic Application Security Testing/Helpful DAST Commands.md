@@ -8,4 +8,4 @@
 |cat|Show the output file|```cat nikto_output.xml```|
 |-list-plugins|shows a list of the available plugins|```./nikto.pl -list-plugins```|
 |-Plugins \<plugin-name\>|Run a nikto plugin scan against a production machine|```./nikto.pl -h prod-acsrq8h9 -Plugins "@@default;dictionary(dictionary:/nikto/program/databases/db_dictionary)"```|
-
+|
