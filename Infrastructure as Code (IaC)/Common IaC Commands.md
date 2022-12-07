@@ -18,7 +18,8 @@
 |ansible-galaxy|Galaxy provides pre-packaged units of work known to Ansible as roles and collections.|```ansible-galaxy install secfigo.terraform```|
 |install|Used to install roles within ansible|```ansible-galaxy install secfigo.terraform```|
 |search|Can search for desired roles within ansible using search option|```ansible-galaxy search terraform```|
-
+|echo|Used to copy contents of private key variable stored in Gitlab CI into the id_rsa file under the ~/.ssh inside the container|```- echo "$DEPLOYMENT_SERVER_SSH_PRIVKEY" \| tr -d '\r' > ~/.ssh/id_rsa```|
+|eval|eval runs the command ssh-agent in the background and sends the key whenever SSH asks for a key in an automated fashion.|```- eval "$(ssh-agent -s)"```|
 
 
 
