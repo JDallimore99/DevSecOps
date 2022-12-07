@@ -1,3 +1,4 @@
+#IaC Commands
 |Command|Description|Example|
 |:---|:---|:----|
 |pip3 install|install programs such as Ansible|```pip3 install ansible==6.4.0```|
@@ -20,10 +21,6 @@
 |search|Can search for desired roles within ansible using search option|```ansible-galaxy search terraform```|
 |echo|Used to copy contents of private key variable stored in Gitlab CI into the id_rsa file under the ~/.ssh inside the container|```- echo "$DEPLOYMENT_SERVER_SSH_PRIVKEY" \| tr -d '\r' > ~/.ssh/id_rsa```|
 |eval|eval runs the command ssh-agent in the background and sends the key whenever SSH asks for a key in an automated fashion.|```- eval "$(ssh-agent -s)"```|
-
-
-
-
 
 
 To find the available modules, you can check out this link (https://docs.ansible.com/ansible/2.8/modules/list_of_all_modules.html) or use the local help command-line tool.
