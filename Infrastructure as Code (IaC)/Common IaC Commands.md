@@ -5,11 +5,4 @@
 |ansible|Use the ansible command|```ansible -i inventory.ini prod --list-hosts```|
 |--version|See if there is any default configuration for Ansible|```ansible --version```|
 |mkdir|Create a configuration file by making a directory|```mkdir /etc/ansible/```|
-|ansible.cfg|Create a file that is used as a configuration|```cat > /etc/ansible/ansible.cfg <<EOF
-[defaults]
-stdout_callback = yaml
-deprecation_warnings = False
-host_key_checking = False
-retry_files_enabled = False
-inventory = /inventory.ini
-EOF```|
+|ansible.cfg|Create a file that is used as a configuration|```cat > /etc/ansible/ansible.cfg <<EOF [defaults] stdout_callback = yaml deprecation_warnings = False host_key_checking = False retry_files_enabled = False inventory = /inventory.ini EOF```|
