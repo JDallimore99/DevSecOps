@@ -11,5 +11,18 @@
 |shell|Run hostname commmand on all machines|```ansible -i inventory.ini all -m shell -a "hostname"```|
 |apt|used to install a package inside a remote host|```ansible -i inventory.ini all -m apt -a "name=ntp"``` or ```ansible -i inventory.ini prod -m apt -a "name=ntp state=present"```|
 |copy|An ad-hoc command used to copy a file into all remote machines|```ansible -i inventory.ini all -m copy -a "src=/root/notes dest=/root"```|
+|grep|Use to find modules within ansible commands|```ansible-doc -l | grep shell```|
+|"uptime"|Used to find the uptime on production machines using shell module|```ansible -i inventory.ini prod -m shell -a "uptime"```|
+|playbook|Create a playbook file that can be used to run against the production environment|```cat > playbook.yml <<EOL --- - name: Example playbook to install firewalld   hosts: prod   remote_user: root  become: yes  gather_facts: no   vars:     state: present    tasks:  - name: ensure firewalld is at the latest version     apt:       name: firewalld  EOL```|
+|ansible-playbook|Command to run the playbook against a prod machine|```ansible-playbook -i inventory.ini playbook.yml```|
+|ansible-galaxy|Galaxy provides pre-packaged units of work known to Ansible as roles and collections.|```ansible-galaxy install secfigo.terraform```|
+|install|Used to install roles within ansible|```ansible-galaxy install secfigo.terraform```|
+|search|Can search for desired roles within ansible using search option|```ansible-galaxy search terraform```|
+
+
+
+
+
+
 
 To find the available modules, you can check out this link (https://docs.ansible.com/ansible/2.8/modules/list_of_all_modules.html) or use the local help command-line tool.
