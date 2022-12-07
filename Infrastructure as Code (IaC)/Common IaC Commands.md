@@ -1,4 +1,4 @@
-#IaC Commands
+# IaC Commands
 |Command|Description|Example|
 |:---|:---|:----|
 |pip3 install|install programs such as Ansible|```pip3 install ansible==6.4.0```|
