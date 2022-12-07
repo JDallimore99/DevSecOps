@@ -51,7 +51,7 @@
 |/|Used for searching in vi editor|```/High```|
 |d|Used to delete lines/text in vi editor|```d```|
 |nano|Open nano editor|```nano security-report.json```|
-
+---
 # Docker Commands
 |Command|Description|Example|
 |:----|:---|:----|
