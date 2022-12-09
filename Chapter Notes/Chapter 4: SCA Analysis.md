@@ -6,3 +6,6 @@ All SCA tools look for components/library/dependency files in the repository. If
 - For *node.js*, the package manager is *npm* and dependency file is *package.json*.
 - For *ruby*, the package manager is *rubygems* and the dependency file is *gemfile*.
 - For *java*, the package manager is *maven* and the dependency file is *pom.xml*
+
+> **Note:** Some SCA tools like Snyk need the respective package manager to be installed before they can scan the dependecies for a package.
+e.g 
