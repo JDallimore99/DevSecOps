@@ -9,6 +9,9 @@ All SCA tools look for components/library/dependency files in the repository. If
 
 > **Note:** Some SCA tools like Snyk need the respective package manager to be installed before they can scan the dependecies for a package.
 e.g if a project has both package.json (Javascript/node.js) and requirements.txt (python) then snyk expects npm and pip to be installed on that machine otherwise it won't be scan dependencies.
+
 If npm is installed, it will process package.json and will ignore requirements.txt
+
 If pip is installed on the machine, it will process requirements.txt. It won't process package.json or error out.
+
 [SCA-works.pdf](https://github.com/jdallimoreDel/DevSecOps/files/10196320/SCA-works.pdf)
