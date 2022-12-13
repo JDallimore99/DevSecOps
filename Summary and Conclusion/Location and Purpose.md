@@ -72,13 +72,13 @@ You can find more details about the project at https://github.com/ajinabraham/nj
 Pylint is a static code analysis tool for Python which looks for programming errors, helps enforce a coding standard, sniffs out code smells and offers simple refactoring suggestions.
 You can find more details about the project at https://github.com/PyCQA/pylint.
 
-###Brakeman
+### Brakeman
 **Chapter 6.26**  
 Brakeman is Static Analysis tool for Rails application to find vulnerabilities, Fast and Flexible tools with a very good report and fit to embed it in CI/CD pipeline.
 You can find more details about the project at https://brakemanscanner.org/.
 
 ## 7.Dynamic Application Security Testing 
-###Nikto
+### Nikto
 **Chapter 7.1**  
 Nikto is a web server assessment tool. It’s designed to find various default and insecure files, configurations, and programs on any type of web server.
 Nikto is built on LibWhisker2 (by RFP) and can run on any platform which has a Perl environment. It supports SSL, proxies, host authentication, attack encoding, and more.
@@ -108,17 +108,17 @@ Source: Dastardly, from Burp Suite https://portswigger.net/burp/dastardly
 
 ## 8.Infrastructure as Code (IaC)
 ### Ansible
-**Chapter 8.1**
+**Chapter 8.1**  
 Ansible uses simple English like language to automate configurations, settings, and deployments in traditional and cloud environments. It’s easy to learn and can be understood by even non-technical folks.
 Source: Ansible official website https://www.ansible.com/
 
 ### Terrascan
-**Chapter 8.16**  
+**Chapter 8.16**   
 Terrascan allows us to detect compliance and security violations across Infrastructure as Code to mitigate risk before provisioning cloud-native infrastructure.
 You can find more details about the project at https://github.com/accurics/terrascan.
 
 ### Snyk
-**Chapter 8.24**
+**Chapter 8.24**  
 CLI and build-time tool to find & fix known vulnerabilities in open-source dependencies, apart from Software Component Analysis (SCA), Snyk also support to perform SAST for Infrastructure as Code like Terraform.
 Source: Snyk Github Page https://github.com/snyk/snyk
 
