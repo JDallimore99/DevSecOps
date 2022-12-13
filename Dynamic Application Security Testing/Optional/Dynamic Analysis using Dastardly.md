@@ -9,7 +9,7 @@ docker pull public.ecr.aws/portswigger/dastardly
 ```
 Then, let’s run Dastardly scan with the following command.
 ```sh
-docker run --user $(id -u) --rm -v $(pwd):/dastardly -e \ DASTARDLY_TARGET_URL=https://prod-acsrq8h9.lab.practical-devsecops.training -e \ DASTARDLY_OUTPUT_FILE=/dastardly/dastardly-report.xml \ public.ecr.aws/portswigger/dastardly
+docker run --user $(id -u) --rm -v $(pwd):/dastardly -e DASTARDLY_TARGET_URL=https://prod-acsrq8h9.lab.practical-devsecops.training -e DASTARDLY_OUTPUT_FILE=/dastardly/dastardly-report.xml public.ecr.aws/portswigger/dastardly
 **Output**
  §§§§§§§§§§§§§§§§§§§§§§§§\
     §                      § |
