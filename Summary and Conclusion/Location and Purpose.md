@@ -50,29 +50,86 @@ Chelsea is a CLI application written in Ruby, designed to allow you to scan your
 TruflleHog is a tool that searches through git repositories for secrets, digging deep into commit history and branches. This tool is useful in finding the secrets accidentally committed to the repo.
 You can find more details about the project at https://github.com/dxa4481/truffleHog.
 
-## Bandit
+### Bandit
 **Chapter 6.8**  
 The Bandit is a tool designed to find common security issues in Python code.
 To do this Bandit, processes each file, builds an AST, and runs appropriate plugins against the AST nodes. Once Bandit has finished scanning all the files it generates a report.
 Bandit was originally developed within the OpenStack Security Project and later rehomed to PyCQA.
 You can find more details about the project at https://github.com/PyCQA/bandit.
 
-## FindSecBugs
+### FindSecBugs
 **Chapter 6.23**  
 The SpotBugs plugin for security audits of Java web applications and Android applications.
 You can find more details about the project at https://github.com/find-sec-bugs/find-sec-bugs
 
-## njsscan
+### njsscan
 **Chapter 6.24**  
 njsscan is a semantic aware SAST tool that can find insecure code patterns in your Node.js applications using a simple pattern matcher from libsast and pattern search tool like semgrep (lightweight static analysis for many languages).
 You can find more details about the project at https://github.com/ajinabraham/njsscan.
 
-## pylint
+### pylint
 **Chapter 6.25**  
 Pylint is a static code analysis tool for Python which looks for programming errors, helps enforce a coding standard, sniffs out code smells and offers simple refactoring suggestions.
 You can find more details about the project at https://github.com/PyCQA/pylint.
 
-## Brakeman
+###Brakeman
 **Chapter 6.26**  
 Brakeman is Static Analysis tool for Rails application to find vulnerabilities, Fast and Flexible tools with a very good report and fit to embed it in CI/CD pipeline.
 You can find more details about the project at https://brakemanscanner.org/.
+
+## 7.Dynamic Application Security Testing 
+###Nikto
+**Chapter 7.1**  
+Nikto is a web server assessment tool. It’s designed to find various default and insecure files, configurations, and programs on any type of web server.
+Nikto is built on LibWhisker2 (by RFP) and can run on any platform which has a Perl environment. It supports SSL, proxies, host authentication, attack encoding, and more.
+Source: Nikto official. https://cirt.net/Nikto2
+
+### MAP
+**Chapter 7.2**  
+Nmap (“Network Mapper”) is a free and open source (license) utility for network discovery and security auditing. Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime.
+Source Nmap official website https://nmap.org/
+
+### SLyze
+**Chapter 7.3**  
+SSLyze is a fast and powerful SSL/TLS scanning library.
+It allows you to analyze the SSL/TLS configuration of a server by connecting to it, in order to detect various issues (bad certificate, weak cipher suites, Heartbleed, ROBOT, TLS 1.3 support, etc.).
+SSLyze can either be used as command line tool or as a Python library.
+Source: SSLyze Github https://github.com/nabla-c0d3/sslyze
+
+### ZAP
+**Chapter 7.5**  
+ZAP is an open-source web application security scanner to perform security testing (Dynamic Testing) on web applications. OWASP ZAP is the flagship OWASP project used extensively by penetration testers. ZAP can also run in a daemon mode for hands-off scans for CI/CD pipeline. ZAP provides extensive API (SDK) and a REST API to help users create custom scripts.
+Source: OWASP ZAP https://www.zaproxy.org/getting-started/
+
+### Dastardly
+**Chapter 7.6**  
+Dastardly is an open-source lightweight web application security scanner that can be used as a Dynamic Application Security Testing tool. It can be easily integrated into your CI/CD system to find vulnerabilities in your software applications.
+Source: Dastardly, from Burp Suite https://portswigger.net/burp/dastardly
+
+## 8.Infrastructure as Code (IaC)
+### Ansible
+**Chapter 8.1**
+Ansible uses simple English like language to automate configurations, settings, and deployments in traditional and cloud environments. It’s easy to learn and can be understood by even non-technical folks.
+Source: Ansible official website https://www.ansible.com/
+
+### Terrascan
+**Chapter 8.16**  
+Terrascan allows us to detect compliance and security violations across Infrastructure as Code to mitigate risk before provisioning cloud-native infrastructure.
+You can find more details about the project at https://github.com/accurics/terrascan.
+
+### Snyk
+**Chapter 8.24**
+CLI and build-time tool to find & fix known vulnerabilities in open-source dependencies, apart from Software Component Analysis (SCA), Snyk also support to perform SAST for Infrastructure as Code like Terraform.
+Source: Snyk Github Page https://github.com/snyk/snyk
+
+## 9.Compliance as Code (CaC)
+### Inspec
+**Chapter 9.1**  
+Chef InSpec is an open-source framework for testing and auditing your applications and infrastructure. Chef InSpec works by comparing the actual state of your system with the desired state that you express in easy-to-read and easy-to-write Chef InSpec code. Chef InSpec detects violations and displays findings in the form of a report, but puts you in control of remediation.
+Source: Inspec official website https://www.inspec.io/docs
+
+## 10.Vulnerability Management
+### DefectDojo
+**Chapter 10.1**  
+DefectDojo is a security tool that automates application security vulnerability management. DefectDojo streamlines the application security testing process by offering features such as importing third party security findings, merging and de-duping, integration with Jira, templating, report generation and security metrics.
+Source: https://defectdojo.github.io/django-DefectDojo
