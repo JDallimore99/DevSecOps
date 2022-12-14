@@ -170,3 +170,38 @@ prod:
     - echo "This is a deploy step."
   when: manual # Continuous Delivery
 ```
+## Ruby on Rails
+### Terminal
+#### Install Ruby
+```sh
+curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
+```
+Add it to path
+```sh
+export PATH="~/.rbenv/bin:$PATH"
+```
+Check version needed
+```sh
+cat Gemfile
+```
+Install compilers
+```sh
+apt update
+apt-get install build-essential libreadline-dev -y
+```
+Install latest ruby version
+```sh
+rbenv install 2.6.5
+```
+Export Ruby to path
+```sh
+export PATH="/root/.rbenv/versions/2.6.5/bin:$PATH"
+```
+#### Install scanner
+```sh
+gem install --user-install bundler-audit
+```
+Export to path
+```sh
+export PATH="~/.gem/ruby/2.6.0/bin/:$PATH"
+```
