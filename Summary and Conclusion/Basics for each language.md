@@ -28,3 +28,37 @@ test:
   ```
   Focus on using docker pull to get the download and get the tool. This is found in hysnsec.  
   Focus on running the scanner using dokcer run. We need to share the project’s source code inside the container for it to access these files. We can do that using the -v option of the docker command, including the path ```-v $pwd:/src```. The option mounts the current directory in the host (runner) to /src inside the container. This could also be -v /home/ubuntu/code:/src or c:\Users\student\code:/src if you were using windows.
+
+## NodeJS
+### Terminal
+Install
+```sh
+curl -sL https://deb.nodesource.com/setup_12.x | bash -
+apt install nodejs -y
+npm install -g retire@3.0.6
+npm install
+```
+Run the scanner
+```sh
+retire --outputformat json --outputpath retire_output.json
+cat retire_output.json
+```
+Can use .retireignore.json to mark false positives and then use this to remove false positives in further scans.
+```sh
+retire --severity high --ignorefile .retireignore.json --outputformat json --outputpath retire_output.json
+```
+### GitLab CI/CD Pipeline
+```sh
+oast-frontend:
+  stage: test
+  image: node:alpine3.10
+  script:
+    - npm install
+    - npm install -g retire # Install retirejs npm package.
+    - retire --outputformat json --outputpath retirejs-report.json --severity high
+  artifacts:
+    paths: [retirejs-report.json]
+    when: always # What is this for?
+    expire_in: one week
+```
+
