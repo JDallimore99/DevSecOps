@@ -205,3 +205,36 @@ Export to path
 ```sh
 export PATH="~/.gem/ruby/2.6.0/bin/:$PATH"
 ```
+#### Run the scanner
+```sh
+bundle-audit
+```
+
+### GitLab CI/CD Pipeline
+#### In Terminal
+```sh
+git clone https://gitlab.practical-devsecops.training/pdso/rails.git rails
+cd rails
+``` 
+Rename git url to new one
+```sh
+git remote rename origin old-origin
+git remote add origin http://gitlab-ce-acsrq8h9.lab.practical-devsecops.training/root/rails.git
+```
+Push code to repository
+```sh
+git push -u origin --all
+Username for 'http://gitlab-ce-acsrq8h9.lab.practical-devsecops.training': root
+Password for 'http://root@gitlab-ce-acsrq8h9.lab.practical-devsecops.training': pdso-training
+```
+#### In GitLab CI/CD Pipeline
+```sh
+bundler-audit:
+  stage: test
+  script:
+    - docker run --rm -v $(pwd):/src -w /src hysnsec/bundle-audit check --format json --output bundle-audit-output.json
+  artifacts:
+    paths: [bundle-audit-output.json]
+    when: always # What is this for?
+    expire_in: one_week
+```  
