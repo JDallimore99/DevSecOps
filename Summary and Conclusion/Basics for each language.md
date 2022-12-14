@@ -62,3 +62,13 @@ oast-frontend:
     expire_in: one week
 ```
 
+## Java
+###Terminal
+Install 
+```sh
+apt update
+apt install openjdk-8-jre -y
+wget -O /opt/v6.1.6.zip https://github.com/jeremylong/DependencyCheck/releases/download/v6.1.6/dependency-check-6.1.6-release.zip
+unzip /opt/v6.1.6.zip -d /opt/
+export PATH=/opt/dependency-check/bin:$PATH
+```
