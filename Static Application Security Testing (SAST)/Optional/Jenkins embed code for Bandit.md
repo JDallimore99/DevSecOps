@@ -1,4 +1,4 @@
-```sh
+```
 pipeline {
     agent any
 
@@ -8,8 +8,8 @@ pipeline {
 
     stages {
         stage("build") {
-            agent { 
-                docker { 
+            agent {
+                docker {
                     image 'python:3.6'
                     args '-u root'
                 }
@@ -25,8 +25,8 @@ pipeline {
             }
         }
         stage("test") {
-            agent { 
-                docker { 
+            agent {
+                docker {
                     image 'python:3.6'
                     args '-u root'
                 }
@@ -43,7 +43,9 @@ pipeline {
         }
         stage("sast") {
             steps {
-                sh "docker run -v \$(pwd):/src --rm hysnsec/bandit -r /src -f json -o /src/bandit-output.json"
+                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
+                    sh "docker run -v \$(pwd):/src --rm hysnsec/bandit -r /src -f json -o /src/bandit-output.json"
+                }
             }
             post {
                 always {
@@ -68,25 +70,19 @@ pipeline {
     }
     post {
         failure {
-            updateGitlabCommitStatus(name: "\${env.STAGE_NAME}", state: 'failed')
+            updateGitlabCommitStatus(name: STAGE_NAME, state: 'failed')
         }
         unstable {
-            updateGitlabCommitStatus(name: "\${env.STAGE_NAME}", state: 'failed')
+            updateGitlabCommitStatus(name: STAGE_NAME, state: 'failed')
         }
         success {
-            updateGitlabCommitStatus(name: "\${env.STAGE_NAME}", state: 'success')
+            updateGitlabCommitStatus(name: STAGE_NAME, state: 'success')
         }
         aborted {
-            updateGitlabCommitStatus(name: "\${env.STAGE_NAME}", state: 'canceled')
+            updateGitlabCommitStatus(name: STAGE_NAME, state: 'skipped')
         }
-        always { 
+        always {
             deleteDir()                     // clean up workspace
-            dir("${WORKSPACE}@tmp") {       // clean up tmp directory
-                deleteDir()
-            }
-            dir("${WORKSPACE}@script") {    // clean up script directory
-                deleteDir()
-            }
         }
     }
 }
