@@ -204,3 +204,6 @@ Target:  ssh://root@prod-jftfefdf:22
 Profile Summary: 3 successful controls, 0 control failures, 0 controls skipped
 Test Summary: 3 successful, 0 failures, 0 skipped
 ```
+<img width="665" alt="Sudoers " src="https://user-images.githubusercontent.com/118181672/210365990-2dbae307-2a59-4a90-a6d9-4ab2a10917f0.png">
+
+<img width="664" alt="Inspec profile complete" src="https://user-images.githubusercontent.com/118181672/210366029-e7ba080d-16a1-4f13-a011-277a933a9373.png">
