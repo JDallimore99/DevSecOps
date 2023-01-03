@@ -149,4 +149,5 @@ The flags/options used in the above commands are:
 - -t : tells the target machine to run the profile against.
 - -i : provides the path where the remote machine’s ssh key is stored.
 - --chef-license : accept ensures that we are accepting license agreement there by preventing the inspec from prompting YES or NO question.
+
 As expected, our production machine is not hardened yet, so we have 1 control failure.
