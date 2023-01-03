@@ -149,4 +149,58 @@ We have already taken care of step 2 for you, so you only have to deal with step
 If host key checks are disabled, the client will not be able to detect if it is being subjected to an MITM attack and will unknowingly send sensitive data, such as passwords and other confidential information, to the attacker. This can result in data breaches, unauthorized access to systems, and other security issues.
 Therefore, it is generally recommended to leave host key checks enabled in production environments to help protect against MITM attacks. 
 
+```sh
+echo "StrictHostKeyChecking accept-new" >> ~/.ssh/config
+```
+As mentioned before, the above command prevents the ssh agent from prompting YES or NO question.
+Run the newly created ubuntu Inspec profile against the production server (prod-ccpwla97)
+```sh 
+inspec exec ubuntu -t ssh://root@prod-ccpwla97 -i ~/.ssh/id_rsa --chef-license accept
+```
+**Output**
+```sh
+Profile: InSpec Profile (ubuntu)
+Version: 0.1.0
+Target:  ssh://root@prod-jftfefdf:22
 
+  ✔  ubuntu-1.3.1: Ensure sudo is installed
+     ✔  System Package sudo is expected to be installed
+  ×  ubuntu-1.3.2: Ensure sudo commands use pty
+     ×  is expected to include "Defaults use_pty"
+     expected "" to include "Defaults use_pty"
+  ×  ubuntu-1.3.3: Ensure sudo log file exists
+     ×  is expected to include "Defaults logfile="
+     expected "" to include "Defaults logfile="
+
+
+Profile Summary: 1 successful control, 2 control failures, 0 controls skipped
+Test Summary: 1 successful, 2 failures, 0 skipped
+```
+The flags/options used in the above commands are
+- -t specifies the target machine to run the Inspec profile against. Here, we are using SSH as a remote login mechanism, but we can also use winrm (windows), container (docker), etc.,
+- -i provides the path where the remote/local machine’s ssh key is stored.
+- --chef-license option ensures that we are accepting the license agreement automatically.
+
+We can see that we have about 1 successful control check and 2 control failures.
+
+## Challenges
+Read the documentation about OS Resources
+Understand the difference between command and service resource
+Please do whatever it takes on the production machine to achieve the following Inspec output
+```sh
+Profile: InSpec Profile (ubuntu)
+Version: 0.1.0
+Target:  ssh://root@prod-jftfefdf:22
+
+✔  ubuntu-1.3.1: Ensure sudo is installed
+   ✔  System Package sudo is expected to be installed
+✔  ubuntu-1.3.2: Ensure sudo commands use pty
+   ✔  Defaults use_pty
+      is expected to include "Defaults use_pty"
+✔  ubuntu-1.3.3: Ensure sudo log file exists
+   ✔  Defaults logfile="/var/log/sudo.log"
+      is expected to include "Defaults logfile="
+
+Profile Summary: 3 successful controls, 0 control failures, 0 controls skipped
+Test Summary: 3 successful, 0 failures, 0 skipped
+```
