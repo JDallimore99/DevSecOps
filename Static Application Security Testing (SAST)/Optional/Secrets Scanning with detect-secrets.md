@@ -123,3 +123,52 @@ Secret Type: Secret Keyword
 14:    }
 ----------
 Is this a secret that should be committed to this repository? (y)es, (n)o, (s)kip, (q)uit:
+```
+## GitLab Integration
+```
+image: docker:latest  # To run all jobs in this pipeline, use a latest docker image
+
+services:
+  - docker:dind       # To run all jobs in this pipeline, use a docker image which contains a docker daemon running inside (dind - docker in docker). Reference: https://forum.gitlab.com/t/why-services-docker-dind-is-needed-while-already-having-image-docker/43534
+
+stages:
+  - build
+  - test
+  - release
+  - preprod
+  - integration
+  - prod
+
+build:
+  stage: build
+  image: python:3.6
+  before_script:
+   - pip3 install --upgrade virtualenv
+  script:
+   - virtualenv env                       
+   - source env/bin/activate              # Activate the virtual environment
+   - pip install -r requirements.txt      # Install the required third party packages as defined in requirements.txt
+   - python manage.py check               # Run checks to ensure the application is working fine
+
+test:
+  stage: test
+  image: python:3.6
+  before_script:
+   - pip3 install --upgrade virtualenv
+  script:
+   - virtualenv env
+   - source env/bin/activate
+   - pip install -r requirements.txt
+   - python manage.py test taskManager
+
+secrets-scanning:
+  stage: test
+  image: python:3.6
+  script: 
+    - pip3 install detect-secrets==1.3.0
+    - detect-secrets scan > secrets-output.json
+  artifacts:
+    paths: [secrets-output.json]
+    when: always 
+  allow_failure: true
+```
