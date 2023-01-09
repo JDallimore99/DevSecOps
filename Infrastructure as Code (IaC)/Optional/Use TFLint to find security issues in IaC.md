@@ -149,3 +149,27 @@ Warning: Quoted references are deprecated
 In this context, references are expected literally rather than in quotes. Terraform 0.11 and earlier required quotes, but quoted references are now deprecated and will be removed in a future version of Terraform. Remove the quotes surrounding this reference to silence this warning.
 ```
 As you can see, tflint found several errors that we need to fix in our Terraform configurations/code. Fixing errors when writing terraform resources will prevent errors occurring during runtime when executing with the terraform run command.
+
+## GitLab Embed
+```sh
+image: docker:latest
+
+services:
+  - docker:dind
+stages:
+  - build
+  - test
+  - release
+  - preprod
+  - integration
+  - prod
+
+tflint:
+  stage: test
+  script:
+    docker run --rm -v $(pwd):/data -t ghcr.io/terraform-linters/tflint aws -f json | tee tflint-output.json
+  artifacts:
+    paths: [tflint-output.json]
+    when: always
+  allow_failure: true
+```
