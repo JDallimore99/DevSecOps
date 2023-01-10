@@ -88,7 +88,7 @@ secrets-scanning:
   stage: build
   script:
     - docker pull hysnsec/detect-secrets
-    - docker run --user $(id -u):$(id -g) -v $(pwd):/src --rm hysnsec/detect-secrets scan | tee secrets-output.json
+    - docker run --user $(id -u):$(id -g) -v $(pwd):/src --rm -w /src hysnsec/detect-secrets scan | tee secrets-output.json
   artifacts:
     paths: [secrets-output.json]
     when: always
