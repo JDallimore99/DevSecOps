@@ -107,3 +107,12 @@ This allows for the ZAP Scan to spider for longer, therefore scanning more URLs,
 docker run --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-6jnpiomi.lab.practical-devsecops.training -j -m 5
 ```
 ## Challenge 5
+- manual fixes
+```sh
+cat > /etc/fstab <<EOF
+> tmpfs /dev tmpfs noexec,nosuid,nodev 00
+> EOF
+```
+```sh
+mount -t tmpfs -o noexec,nosuid,nodev /dev
+```
