@@ -110,9 +110,38 @@ docker run --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-6
 - manual fixes
 ```sh
 cat > /etc/fstab <<EOF
-> tmpfs /dev tmpfs noexec,nosuid,nodev 00
+> tmpfs /dev tmpfs noexec,nosuid,nodev 0 0
 > EOF
 ```
 ```sh
 mount -t tmpfs -o noexec,nosuid,nodev /dev
+```
+- bonus marks
+```
+- name Mount /dev with noexec
+mount: 
+path: /dev
+fstype: tmpfs
+opts:
+noexec, nosuid, nodev
+state: mounted
+```
+```
+-name: replace string in file
+replace: 
+path: /etc/login.defs
+regexp: "PASS_MIN_DAYS   0"
+replace: "PASS_MIN_DAYS   7"
+replace:
+path: /etc/login.defs
+regexp: "PASS_MAX_DAYS   99999"
+replace: "PASS_MAX_DAYS   60"
+replace:
+path: /etc/login.defs
+regexp: "PASS_MAX_DAYS   99999"
+replace: "PASS_MAX_DAYS   60"
+replace:
+path: /etc/login.defs
+regexp: "   99999"
+replace: "PASS_MAX_DAYS   60"
 ```
