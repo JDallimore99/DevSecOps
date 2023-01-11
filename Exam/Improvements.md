@@ -117,6 +117,7 @@ mount -t tmpfs -o noexec,nosuid,nodev /dev
 ```
 - bonus marks
 ```
+---
 - name Mount /dev with noexec
 mount: 
 path: ssh://root@prod-f0a53jo9/dev
@@ -144,7 +145,20 @@ path: /etc/login.defs
 regexp: "   99999"
 replace: "PASS_MAX_DAYS   60"
 ```
+To add the file to the role, download the ansible role, find the location and cd into the directory.
+```sh
+cd /root/.ansible/roles/dev-sec.os-hardening/tasks
 ```
+Open the hardening role and edit the file to include the cron.yml
+```
+vi hardening.yml
+```
+```sh
+- import_tasks: cron.yml  tags: cron
+```
+Then create the cron.yml file
+```
+---
 - name: Find cron files and directories
   find:
     paths:
@@ -167,3 +181,4 @@ replace: "PASS_MAX_DAYS   60"
     mode: 700
   with_items: "{{ cron_directories.files }}"
 ```
+Now, when running the ansible role as usual, it should complete this as one of the tasks
