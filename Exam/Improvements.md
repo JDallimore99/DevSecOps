@@ -109,9 +109,8 @@ docker run --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-6
 ## Challenge 5
 - manual fixes
 ```sh
-cat > /etc/fstab <<EOF
-> tmpfs /dev tmpfs noexec,nosuid,nodev 0 0
-> EOF
+tmpfs /dev tmpfs noexec,nosuid,nodev 0 0
+EOF
 ```
 ```sh
 mount -t tmpfs -o noexec,nosuid,nodev /dev
@@ -120,7 +119,7 @@ mount -t tmpfs -o noexec,nosuid,nodev /dev
 ```
 - name Mount /dev with noexec
 mount: 
-path: /dev
+path: ssh://root@prod-f0a53jo9/dev
 fstype: tmpfs
 opts:
 noexec, nosuid, nodev
@@ -144,4 +143,27 @@ replace:
 path: /etc/login.defs
 regexp: "   99999"
 replace: "PASS_MAX_DAYS   60"
+```
+```
+- name: Find cron files and directories
+  find:
+    paths:
+      - /etc
+    patterns:
+      - cron.hourly
+      - cron.daily
+      - cron.weekly
+      - cron.monthly
+      - cron.d
+      - crontab
+    file_type: any
+  register: cron_directories
+
+- name: Ensure permissions on cron files and directories are configured
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    owner: root
+    group: root
+    mode: 700
+  with_items: "{{ cron_directories.files }}"
 ```
