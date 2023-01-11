@@ -101,10 +101,10 @@ If there is an error with the ZAP Scan being uploaded to Dojo, either error 500 
 spidering options
 
 This allows for the ZAP Scan to spider for longer, therefore scanning more URLs, and implements the ajax spider as well as the traditional spider. The AJAX Spider is an add-on for a crawler called Crawljax. The add-on sets up a local proxy in ZAP to talk to Crawljax. The AJAX Spider allows you to crawl web applications written in AJAX in far more depth than the native Spider. Use the AJAX Spider if you may have web applications written in AJAX.
-- -j Ajax spider
+- -z set spider options
 - -m time in minutes for the zap scan to spider
 ```sh
-docker run --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-6jnpiomi.lab.practical-devsecops.training -j -m 5
+docker run --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-6jnpiomi.lab.practical-devsecops.training -m 5 -z 
 ```
 ## Challenge 5
 - manual fixes
