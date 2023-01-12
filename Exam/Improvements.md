@@ -83,6 +83,13 @@ Another way to run a playbook in check mode is to add the check_mode parameter t
 ## Challenge 3
 - Create a job called secrets-scanning under the build stage to run a tool named detect-secrets 
 using docker (example: hysnsec/detect-secrets)
+
+Terminal
+```sh 
+docker pull hysnsec/detect-secrets
+docker run -v $(pwd):/src --rm -w /src hysnsec/detect-secrets scan | tee secrets-output.json
+```
+Github
 ```sh
 secrets-scanning:
   stage: build
