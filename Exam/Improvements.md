@@ -109,11 +109,13 @@ docker run --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-6
 ```
 ## Challenge 5
 - manual fixes
+Add these lines of code to mount the /dev with noexec
 ```sh
-tmpfs /dev tmpfs noexec,nosuid,nodev 0 0
+tmpfs /dev tmpfs defaults,noexec,nosuid,nodev 0 0
+tmpfs                   /dev/shm                tmpfs   defaults,nodev,nosuid,noexec        0 0
 ```
 ```sh
-mount -t tmpfs -o noexec,nosuid,nodev /dev
+mount -o remount,noexec,nosuid,nodev /dev
 ```
 - bonus marks
 ```
