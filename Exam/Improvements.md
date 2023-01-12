@@ -108,6 +108,33 @@ This allows for the ZAP Scan to spider for longer, therefore scanning more URLs,
 docker run --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-6jnpiomi.lab.practical-devsecops.training -m 5 -z 
 ```
 ## Challenge 5
+- scan for antivirus
+Add a control for scanning the antivirus by creating a custom inspec profile and then creating the control in the profile/controls directory
+```sh
+cat >> ubuntu/controls/example.rb <<EOL
+title "sample section"
+
+# you can also use plain tests
+describe file("/tmp") do
+  it { should be_directory }
+end
+
+# you add controls here
+
+describe package('clamav') do
+  it { should be_installed }
+  its('version') { should eq '0.98.7' }
+end
+
+describe service('clamd') do
+  it { should be_enabled }
+  it { should be_installed }
+  it { should be_latest }
+  it { should be_running }
+end
+```
+Then create the other control files that will include the linux baseline controls using the same methods as above. These can be found from https://github.com/dev-sec/linux-baseline/tree/master/controls
+
 - manual fixes
 Add these lines of code to mount the /dev with noexec
 ```sh
