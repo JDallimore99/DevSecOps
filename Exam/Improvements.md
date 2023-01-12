@@ -204,3 +204,23 @@ Then create the cron.yml file
     mode: o-rwx
 ```
 Now, when running the ansible role as usual, it should complete this as one of the tasks
+
+Add devmount.yml to Ansible role, this is done by creating a devmount.yml file
+```sh
+```sh
+- import_tasks: devmount.yml  tags: devmount
+```
+Create the task in the diretory
+```sh
+cat > devmount.yml
+```
+```
+---
+- name: Mount /dev tmpfs with noexec
+  mount:
+          path: /dev
+          src: tmpfs
+          fstype: tmpfs
+          opts: defaults,noexec,nosuid,nodev
+          state: mounted
+```
