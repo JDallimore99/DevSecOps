@@ -117,36 +117,8 @@ tmpfs                   /dev/shm                tmpfs   defaults,nodev,nosuid,no
 ```sh
 mount -o remount,noexec,nosuid,nodev /dev
 ```
-- bonus marks
-```
----
-- name Mount /dev with noexec
-mount: 
-path: ssh://root@prod-f0a53jo9/dev
-fstype: tmpfs
-opts:
-noexec, nosuid, nodev
-state: mounted
-```
-```
--name: replace string in file
-replace: 
-path: /etc/login.defs
-regexp: "PASS_MIN_DAYS   0"
-replace: "PASS_MIN_DAYS   7"
-replace:
-path: /etc/login.defs
-regexp: "PASS_MAX_DAYS   99999"
-replace: "PASS_MAX_DAYS   60"
-replace:
-path: /etc/login.defs
-regexp: "PASS_MAX_DAYS   99999"
-replace: "PASS_MAX_DAYS   60"
-replace:
-path: /etc/login.defs
-regexp: "   99999"
-replace: "PASS_MAX_DAYS   60"
-```
+- 10 Bonus points will be awarded if the manual fixes are added to the ansible role os-hardening (of dev-sec)
+
 To add the file to the role, download the ansible role, find the location and cd into the directory.
 ```sh
 cd /root/.ansible/roles/dev-sec.os-hardening/tasks
