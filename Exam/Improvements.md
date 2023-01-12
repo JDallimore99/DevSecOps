@@ -111,7 +111,6 @@ docker run --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-6
 - manual fixes
 ```sh
 tmpfs /dev tmpfs noexec,nosuid,nodev 0 0
-EOF
 ```
 ```sh
 mount -t tmpfs -o noexec,nosuid,nodev /dev
