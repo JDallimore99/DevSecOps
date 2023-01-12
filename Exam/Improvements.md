@@ -177,10 +177,30 @@ Then create the cron.yml file
 
 - name: Ensure permissions on cron files and directories are configured
   ansible.builtin.file:
-    path: "{{ item.path }}"
+    path: /etc/cron.d
     owner: root
     group: root
-    mode: 700
-  with_items: "{{ cron_directories.files }}"
+    mode: g-rwx
+
+- name: Ensure permissions on cron files and directories are configured
+  ansible.builtin.file:
+    path: /etc/cron.d
+    owner: root
+    group: root
+    mode: o-rwx
+
+- name: Ensure permissions on cron.daily to g-rwx and directories are configured
+  ansible.builtin.file:
+    path: /etc/cron.daily
+    owner: root
+    group: root
+    mode: g-rwx
+
+- name: Ensure permissions on cron.daily to o-rwx
+  ansible.builtin.file:
+    path: /etc/cron.daily
+    owner: root
+    group: root
+    mode: o-rwx
 ```
 Now, when running the ansible role as usual, it should complete this as one of the tasks
