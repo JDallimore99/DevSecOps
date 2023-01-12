@@ -196,4 +196,6 @@ cat > devmount.yml
           opts: defaults,noexec,nosuid,nodev
           state: mounted
 ```
-This adds the devmount task to the role and then 
+This adds the devmount task to the role and then mounts /dev with noexec
+
+The other manual fix is already utilised within ansible hardening and therefore does not need to be added
