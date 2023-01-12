@@ -196,3 +196,4 @@ cat > devmount.yml
           opts: defaults,noexec,nosuid,nodev
           state: mounted
 ```
+This adds the devmount task to the role and then 
