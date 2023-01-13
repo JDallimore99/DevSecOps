@@ -41,6 +41,13 @@ sast:
 ```
 If there is an error stating configuration cannot be found, this is due to the fact that GitLab cannot find the path of the brakeman.ignore file correctly, and therefore need to double check the path of the file/alter path of the file.
 
+- The sast job with brakeman should run on every commit on every branch, and should run 
+for each pull/merge requests for the railsgoat repository
+
+```sh
+rules:
+  - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+```
 - Also, explain why an issue that is marked as false positive is indeed a false positive and not a 
 real finding
 
