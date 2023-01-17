@@ -108,7 +108,25 @@ secrets-scanning:
     when: always
   allow_failure: true  
 ```
+- Fail the build if there are Secrets
 
+This was tricky and needed to use the jq function to gather the length of the results section. Then an if statement was used to verify whether the results found in the output were more than 0. If so, then the build was failed using exit code 1
+```sh 
+secrets-scanning:
+  stage: build
+  before_script:
+    - apk add jq
+  script:
+    - docker pull hysnsec/detect-secrets
+    - docker run --user $(id -u):$(id -g) -v $(pwd):/src --rm -w /src hysnsec/detect-secrets scan | tee secrets-output.json
+    - cat secrets-output.json | jq .results | jq length
+    - len=$(jq '.results | length' secrets-output.json)
+    - if [ $len -gt 0 ]; then exit 1; fi
+  artifacts:
+    paths: [secrets-output.json]
+    when: always
+  allow_failure: false 
+```
 ## Challenge 4
 If there is an error with the ZAP Scan being uploaded to Dojo, either error 500 in local terminal or in GitLab, it is most likely due to the fact Dojo cannot find the production machine, therefore the lab needs to be restarted and this should fix the error
 -  Ensure the ZAP Scan identifies more application urls for scanning using various available 
