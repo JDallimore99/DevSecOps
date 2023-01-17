@@ -4,6 +4,7 @@
 - Take screenshots of implementation of variables in GitLab, GitLab code and GitLab output
 - Good idea to use markdown first, then convert to PDF. Easier to display code snippets
 - When writing out exam, use prod-xxxx for example, therefore no need to change screenshots in the exam if lab has to be restarted
+- Don't need to include environment creation, other stages etc. These are used for demonstration purposes
 ## Challenge 1
 -  First, create a new repo on GitLab (based on https://github.com/OWASP/railsgoat)
 Create Rails repository on GitLab
