@@ -84,3 +84,16 @@ Installing or running Dastardly affirms your agreement to the Terms of Service h
 ```
 The output is present in XML format and the file is in the current directory. You can verify the existence of the output file with ls -l command.
 To read the output easily, we suggest you to use this website and copy paste the output into it: https://codebeautify.org/xmlviewer
+
+## CI/CD Pipeline Integration
+```sh
+dastardly:
+  stage: integration
+  script:
+    - docker pull public.ecr.aws/portswigger/dastardly
+    - docker run --user $(id -u) --rm -v $(pwd):/dastardly -e DASTARDLY_TARGET_URL=https://prod-u0rxlj2k.lab.practical-devsecops.training -e DASTARDLY_OUTPUT_FILE=/dastardly/dastardly-report.xml public.ecr.aws/portswigger/dastardly
+  artifacts:
+    paths: [dastardly-report.xml]
+    when: always
+  allow_failure: true
+```
