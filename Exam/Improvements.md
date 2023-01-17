@@ -1,4 +1,9 @@
 # How to Improve on Gaps found in Exam
+## Technique
+- Take screenshots of every change to the code/output of code. 
+- Take screenshots of implementation of variables in GitLab, GitLab code and GitLab output
+- Good idea to use markdown first, then convert to PDF. Easier to display code snippets
+- When writing out exam, use prod-xxxx for example, therefore no need to change screenshots in the exam if lab has to be restarted
 ## Challenge 1
 -  First, create a new repo on GitLab (based on https://github.com/OWASP/railsgoat)
 Create Rails repository on GitLab
