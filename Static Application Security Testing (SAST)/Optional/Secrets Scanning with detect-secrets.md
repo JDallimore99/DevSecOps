@@ -171,4 +171,14 @@ secrets-scanning:
     paths: [secrets-output.json]
     when: always 
   allow_failure: true
+#or 
+secrets-scanning:
+  stage: build
+  script:
+    - docker pull hysnsec/detect-secrets
+    - docker run --user $(id -u):$(id -g) -v $(pwd):/src --rm -w /src hysnsec/detect-secrets scan | tee secrets-output.json
+  artifacts:
+    paths: [secrets-output.json]
+    when: always
+  allow_failure: true  
 ```
