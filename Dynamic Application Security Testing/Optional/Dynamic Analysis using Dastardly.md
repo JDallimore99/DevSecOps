@@ -95,5 +95,5 @@ dastardly:
   artifacts:
     paths: [dastardly-report.xml]
     when: always
-  allow_failure: false
+  allow_failure: true
 ```
