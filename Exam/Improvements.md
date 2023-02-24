@@ -9,14 +9,16 @@
 -  First, create a new repo on GitLab (based on https://github.com/OWASP/railsgoat)
 Create Rails repository on GitLab
 ```sh
+git clone https://github.com/OWASP/railsgoat rails
+cd rails
 git remote rename origin old-origin
-git remote add origin http://gitlab-ce-yp2xo5em.lab.practical-devsecops.training/root/rails.git
+git remote add origin http://gitlab-ce-xxxxxxxx.lab.practical-devsecops.training/root/rails.git
 git push -u origin --all
 ```
 And enter the GitLab credentials.
 ```sh
-Username for 'http://gitlab-ce-acsrq8h9.lab.practical-devsecops.training': root
-Password for 'http://root@gitlab-ce-acsrq8h9.lab.practical-devsecops.training': pdso-training
+Username for 'http://gitlab-ce-xxxxxxxx.lab.practical-devsecops.training': root
+Password for 'http://root@gitlab-ce-xxxxxxxx.lab.practical-devsecops.training': pdso-training
 ```
 - Ensure you mark false positives as false positives using brakeman's inbuilt features, and 
 ensure that the false positives are not reported as issues in the next scans 
