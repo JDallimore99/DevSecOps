@@ -201,6 +201,37 @@ Add linux baseline controls to the example.rb by using the following command
 include_controls 'linux-baseline'
 ```
 Then run the profile against the target and it will complete both sets of controls
+
+Commit to GitLab
+```sh
+root@b0580021854f:~# cd rails
+root@b0580021854f:~/rails# cp -r /root/my_nginx my_nginx
+root@b0580021854f:~/rails# git add my_nginx
+root@b0580021854f:~/rails# git config --global user.email "jdallimore71@googlemail.com"
+root@b0580021854f:~/rails# git config --global user.name "jdallimore71"
+root@b0580021854f:~/rails# git commit -m "Add custom inspec profile"
+[master 95738b4] Add custom inspec profile
+ 9 files changed, 74 insertions(+)
+ create mode 100644 my_nginx/README.md
+ create mode 100644 my_nginx/controls/example.rb
+ create mode 100644 my_nginx/inspec.yml
+ create mode 100644 my_nginx/my_nginx/README.md
+ create mode 100644 my_nginx/my_nginx/controls/example.rb
+ create mode 100644 my_nginx/my_nginx/controls/os_spec.rb
+ create mode 100644 my_nginx/my_nginx/files/params.yml
+ create mode 100644 my_nginx/my_nginx/inspec.lock
+ create mode 100644 my_nginx/my_nginx/inspec.yml
+root@b0580021854f:~/rails# git push origin master
+Username for 'https://gitlab.com': jdallimore71
+Password for 'https://jdallimore71@gitlab.com':
+Counting objects: 14, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (12/12), done.
+Writing objects: 100% (14/14), 1.75 KiB | 0 bytes/s, done.
+Total 14 (delta 2), reused 0 (delta 0)
+To https://gitlab.com/jdallimore71/rails.git
+   c1e8ff1..95738b4  master -> master
+```
 - manual fixes
 Add these lines of code to mount the /dev with noexec
 ```sh
