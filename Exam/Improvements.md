@@ -152,7 +152,6 @@ docker run --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-6
 
 Add a control for scanning the antivirus by creating a custom inspec profile
 ```
-
 inspec init profile antivirus_check --chef-license accept
 ```
 and then creating the control in the profile/controls directory
@@ -185,8 +184,23 @@ inspec exec https://github.com/dev-sec/linux-baseline /root/my_nginx -t ssh://ro
 ```
 
 or
-Then create the other control files that will include the linux baseline controls using the same methods as above. For example ```cat >> ubuntu/controls/example1.rb <<EOL...```  These can be found from https://github.com/dev-sec/linux-baseline/tree/master/controls
-
+https://docs.chef.io/inspec/profiles/
+Follow instructions to create a new profile that runs the antivirus scan but also includes the linux baseline scan
+Add Linux-baseline to the inspec.yml file as shown in the code here
+```sh
+depends:
+- name: linux-baseline
+  url: https://github.com/dev-sec/linux-baseline/archive/master.tar.gz
+```
+Use ```tree profile-name``` to see if there is a inspec.lock file created. If there is remove it 
+```sh
+rm profile-name inspec.lock
+```
+Add linux baseline controls to the example.rb by using the following command
+```
+include_controls 'linux-baseline'
+```
+Then run the profile against the target and it will complete both sets of controls
 - manual fixes
 Add these lines of code to mount the /dev with noexec
 ```sh
