@@ -147,7 +147,13 @@ docker run --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-6
 ```
 ## Challenge 5
 - scan for antivirus
-Add a control for scanning the antivirus by creating a custom inspec profile and then creating the control in the profile/controls directory
+
+Add a control for scanning the antivirus by creating a custom inspec profile
+```
+
+inspec init profile ubuntu --chef-license accept
+```
+and then creating the control in the profile/controls directory
 ```sh
 cat >> ubuntu/controls/example.rb <<EOL
 title "sample section"
@@ -171,7 +177,7 @@ describe service('clamd') do
   it { should be_running }
 end
 ```
-Then create the other control files that will include the linux baseline controls using the same methods as above. These can be found from https://github.com/dev-sec/linux-baseline/tree/master/controls
+Then create the other control files that will include the linux baseline controls using the same methods as above. For example ```cat >> ubuntu/controls/example1.rb <<EOL...```  These can be found from https://github.com/dev-sec/linux-baseline/tree/master/controls
 
 - manual fixes
 Add these lines of code to mount the /dev with noexec
