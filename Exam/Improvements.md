@@ -153,7 +153,7 @@ docker run --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-6
 Add a control for scanning the antivirus by creating a custom inspec profile
 ```
 
-inspec init profile ubuntu --chef-license accept
+inspec init profile antivirus_check --chef-license accept
 ```
 and then creating the control in the profile/controls directory
 ```sh
@@ -179,6 +179,12 @@ describe service('clamd') do
   it { should be_running }
 end
 ```
+Then run both the linux baseline address and new antivirus profile against the prod machine to gain antivirus scan too
+```sh
+inspec exec https://github.com/dev-sec/linux-baseline /root/my_nginx -t ssh://root@prod-acsrq8h9 -i ~/.ssh/id_rsa --chef-license accept
+```
+
+or
 Then create the other control files that will include the linux baseline controls using the same methods as above. For example ```cat >> ubuntu/controls/example1.rb <<EOL...```  These can be found from https://github.com/dev-sec/linux-baseline/tree/master/controls
 
 - manual fixes
