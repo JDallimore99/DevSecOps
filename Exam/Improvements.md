@@ -254,7 +254,7 @@ Open the hardening role and edit the file to include the cron.yml
 vi hardening.yml
 ```
 ```sh
-- include_tasks: cron.yml  tags: cron
+- import_tasks: cron.yml  tags: cron
 ```
 Then create the cron.yml file
 ```
@@ -305,7 +305,7 @@ Now, when running the ansible role as usual, it should complete this as one of t
 
 Add devmount.yml to Ansible role, this is done by creating a devmount.yml file
 ```sh
-- include_tasks: devmount.yml  tags: devmount
+- import_tasks: devmount.yml  tags: devmount
 ```
 Create the task in the diretory
 ```sh
