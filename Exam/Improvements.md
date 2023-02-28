@@ -305,7 +305,6 @@ Now, when running the ansible role as usual, it should complete this as one of t
 
 Add devmount.yml to Ansible role, this is done by creating a devmount.yml file
 ```sh
-```sh
 - import_tasks: devmount.yml  tags: devmount
 ```
 Create the task in the diretory
