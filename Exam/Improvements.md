@@ -95,6 +95,8 @@ Another way to run a playbook in check mode is to add the check_mode parameter t
     command: /your/command
     check_mode: on
 ```
+
+< Remember, the infrastructure should be indempotent. If the code is run once, there should be changes. If the same code is ran a second time, then it should not make any further changes
 ## Challenge 3
 - Create a job called secrets-scanning under the build stage to run a tool named detect-secrets 
 using docker (example: hysnsec/detect-secrets)
