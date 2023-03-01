@@ -208,14 +208,14 @@ Need to include the hardening script within the git repository
     - dev-sec.os-hardening
 ```
 
-● Ensure the os-hardening job runs only on the master branch in the django.nv
+- Ensure the os-hardening job runs only on the master branch in the django.nv
 repository, and the os-hardening job must not fail the build
 
 ```
 rules:
     - if: $CI_COMMIT_BRANCH == 'master'
 ```
-● The os-hardening job must save the results on the CI server for further processing
+- The os-hardening job must save the results on the CI server for further processing
 in a machine-readable format like JSON, CSV, XML, etc.
 Firstly, can use environmental variables to make the output become json. This output makes the playbook output as a json by using the ANSIBLE_SDTOUT_CALLBACK=json variable
 ```
@@ -229,13 +229,13 @@ stdout_callback = json
 inventory = /inventory.ini
 EOF
 ``` 
-● Explain the need to save the output in machine-readable formats like JSON, CSV,
+- Explain the need to save the output in machine-readable formats like JSON, CSV,
 XML, etc.
-● Run the ansible playbook in the dry mode before making changes to the production
+- Run the ansible playbook in the dry mode before making changes to the production
 machine
 
 
-● As always, test everything locally on the DevSecOps-box machine before integrating
+- As always, test everything locally on the DevSecOps-box machine before integrating
 it into the CI/CD pipeline
 
 Download Ansible locally into terminal
@@ -275,4 +275,130 @@ ansible-galaxy install dev-sec.os-hardening
 Run the ansible-playbook against the prod server using the ansible-playbook function, specifting the inventory target, the playbook being used. Using the ansible built in feature --check, we can run this in dry mode. The infrastructure should be indempotent. If the code is run once, there should be changes. If the same code is ran a second time, then it should not make any further changes. The Ansible Playbook can be run numerous times but only does it make a change the first time due to this being the only time. Using --check mode, we can run the playbook against the machine and simulate what the playbook would do against the prod serveer without the playook making any changes to the server itself.
 ```
 ansible-playbook -i inventory.ini ansible-hardening.yml --check
+```
+
+## Challenge 3: Scan for secrets in django.nv repository (15 points)
+In this challenge, you will use Gitlab CI to implement a CI/CD pipeline using a secret
+scanning tool named detect-secrets with the following details:
+- Create a job called secrets-scanning under the build stage to run a tool named
+detect-secrets using docker (example: hysnsec/detect-secrets)
+```
+image: docker:latest
+services:
+   - docker:dind
+stages: 
+   - build
+secrets-scanning:
+  stage: build
+  script:
+    - docker pull hysnsec/detect-secrets
+    - docker run --user $(id -u):$(id -g) -v $(pwd):/src --rm -w /src hysnsec/detect-secrets scan | tee secrets-output.json
+  artifacts:
+    paths: [secrets-output.json]
+    when: always
+  allow_failure: true  
+```
+
+- The secrets-scanning job must fail the build if issues are found (please do not just
+use exit 1 to achieve job failure)
+
+There is no functionality for the detect-secrets scan to fail the build, therefore if the scan finds secrets it will still be marked as a success, unlike truffle-hog which would fail the build if there were secrets found. Therefore, need to use the jq function to gather the length of the results section. Then an if statement was used to verify whether the results found in the output were more than 0. If so, then the build was failed using exit code 1. As the jq function is not available in the .gitlab-ci.yml file, it needs to be added using apk add jq. Allow_failure is set to false so if the job fails, the entire build fails.
+```
+secrets-scanning:
+  stage: build
+  before_script:
+    - apk add jq
+  script:
+    - docker pull hysnsec/detect-secrets
+    - docker run --user $(id -u):$(id -g) -v $(pwd):/src --rm -w /src hysnsec/detect-secrets scan | tee secrets-output.json
+    - cat secrets-output.json | jq .results | jq length
+    - len=$(jq '.results | length' secrets-output.json)
+    - if [ $len -gt 0 ]; then exit 1; fi
+  artifacts:
+    paths: [secrets-output.json]
+    when: always
+  allow_failure: false 
+```
+- The secrets-scanning job must save the detect-secrets results/output on the CI
+server for further processing in a machine-readable format like JSON, CSV, XML, etc.
+```
+- docker run --user $(id -u):$(id -g) -v $(pwd):/src --rm -w /src hysnsec/detect-secrets scan | tee secrets-output.json
+    - cat secrets-output.json | jq .results | jq length
+    - len=$(jq '.results | length' secrets-output.json)
+    - if [ $len -gt 0 ]; then exit 1; fi
+  artifacts:
+    paths: [secrets-output.json]
+    when: always
+```
+- secrets-scanning job must implement all the applicable DevSecOps Gospel (best
+practices)
+- As always, test everything locally on the DevSecOps-box machine before integrating
+it into the CI/CD pipeline
+
+```
+docker pull hysnsec/detect-secrets
+docker run -v $(pwd):/src --rm -w /src hysnsec/detect-secrets scan | tee secrets-output.json
+```
+## Challenge 4: Run ZAP Scan against the django.nv application (production) and upload results to Defect Dojo (20 points) In this challenge, you will run a ZAP baseline scan on the django.nv application(production) from the DevSecOps Box, then integrate baseline scan into CI/CD pipeline with the following details:
+- Run ZAP Scan on the django.nv app, and upload the results of the ZAP baseline scan into defect dojo's engagement id 1, using upload-results.py python script
+- 
+Download source code from the Django.nv repository on gitlab and cd into webapp
+```
+git clone https://gitlab.practical-devsecops.training/pdso/django.nv webapp
+```
+Enter into the repository
+```
+cd webapp
+```
+Download stable ZAP docker image using docker pull
+```
+docker pull owasp/zap2docker-stable:2.10.0
+```
+Run the zap baseline against the production machine and save as JSON (machine readable format)
+```
+docker run --user $(id -u):$(id -g) -w /zap -v $(pwd):/zap/wrk:rw --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-xxxxxxxx.lab.practical-devsecops.training -J zap-output.json
+```
+As we can see from the scan, there are 10 new warnings found within the production machine, with each warning showing the contributing reason and https:// related to the production machine.
+To view in JSON format, use cat and the zap-output.json
+```
+Cat zap-output.json
+```
+Create a new interactive engagement on Defect Dojo within Django called Zap Scan. This should be set to a time period within the exam lifecycle. The status of the engagement should also be set to in progress
+Download upload results locally into the DevSecOps box.
+```
+curl https://gitlab.practical-devsecops.training/-/snippets/3/raw -o upload-results.py
+```
+Install requests module as well.
+```
+Pip3 install requests
+```
+Create API_KEY locally in the Linux terminal.
+```
+export API_KEY=$(curl -s -XPOST -H 'content-type: application/json' https://dojo-xxxxxxxx.lab.practical-devsecops.training/api/v2/api-token-auth/ -d '{"username": "root", "password": "pdso-training"}' | jq -r '.token' )
+```
+The api key can be validified by echoing the API_KEY.
+```
+echo API_KEY
+```
+Upload results to Dojo using the upload-results.py function. Notice how the ZAP Scan output was changed from json to xml. That is because DefectDojo only accepts ZAP-Scans and translates them when uploaded in an xml format. The engagement_id, product_id and lead_id are all relevant to the engagement, repository and 
+```
+python3 upload-results.py --host dojo-xxxxxxxx.practical-devsecops.training --api_key $API_KEY --engagement_id 1 --product_id 1 --lead_id 1 --environment "Production" --result_file zap-output.xml --scanner "ZAP Scan"
+```
+
+- Ensure the ZAP Scan identifies more application urls for scanning using various available spidering options
+- Create a zap job in the integration stage to scan the production app (django.nv), and automatically upload the ZAP Scan results to Defect Dojo on every scan
+```
+dast-zap:
+  stage: integration
+  before_script:
+    - apk add py-pip py-requests
+    - docker pull owasp/zap2docker-stable:2.10.0
+  script:
+    - docker run --user $(id -u):$(id -g) -w /zap -v $(pwd):/zap/wrk:rw --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-xxxxxxxx.lab.practical-devsecops.training -d -x zap-output.xml
+  after_script:
+    - python3 upload-results.py --host $DOJO_HOST --api_key $DOJO_API_TOKEN --engagement_id 1 --product_id 1 --lead_id 1 --environment "Production" --result_file zap-output.xml --scanner "ZAP Scan"
+  artifacts:
+    paths: [zap-output.xml]
+    when: always
+    expire_in: 1 day
 ```
