@@ -408,3 +408,133 @@ dast-zap:
     expire_in: 1 day
 ```
 
+## Challenge 5: Run inspec linux-baseline profile on the production
+machine (15 points)
+In this challenge, you will run linux-baseline inspec profile on the production machine, and
+fix failed tests/errors on the production machine as outlined below:
+- Run linux-baseline inspec profile on production machine from the DevSecOps-Box
+
+Download inspec Debian package which has the inspec tool in it
+```
+wget https://packages.chef.io/files/stable/inspec/4.37.8/ubuntu/18.04/inspec_4.37.8-1_amd64.deb
+```
+Install the downloaded inspec Debian package
+```
+dpkg -i inspec_4.37.8-1_amd64.deb
+```
+Run inspec against the prod machine using linux-baseline derived from the website 
+```
+inspec exec https://github.com/dev-sec/linux-baseline -t ssh://root@prod-hh3rj0pi -i ~/.ssh/id_rsa --chef-license accept
+```
+This creates a total of 3 control failures and 8 overall failures
+
+- Fix the inspec control failures on the production machine manually (not using any
+automation), you can log in to the production machine using the ssh command
+
+To fix this enter into the prod machine and file ound with failures
+```
+ssh prod-xxxxxxxx
+```
+As you can see these values do not match the expected. Edit to the expected values described within the scan and then save the file
+```
+vi /etc/login.defs
+```
+Run the inspec profile again and the number of failures has gone down. Fixing the entire control will reduce the number of control failures
+To edit permissions in the prod machine, edit the cron.d and cron.daily permissions by using chmod
+```sh
+chmod o-rwx /etc/cron.d
+chmod o-rwx /etc/cron.daily
+chmod g-rwx /etc/cron.daily
+chmod g-rwx /etc/cron.d
+```
+To fix the mounting issue, write these lines of code within the prod machine
+```sh
+tmpfs /dev tmpfs defaults,noexec,nosuid,nodev 0 0
+tmpfs                   /dev/shm                tmpfs   defaults,nodev,nosuid,noexec        0 0
+mount -o remount,noexec,nosuid,nodev /dev
+```
+- Explain how you manually (not using any automation) fixed inspec control failures
+- Ensure the linux-baseline profile checks for the presence of Antivirus software on
+the production machine (if the presence of the Antivirus software is not being
+checked in the linux-baseline profile, please include the Antivirus check)
+- 10 Bonus points will be awarded if the manual fixes are added to the ansible role
+os-hardening (of dev-sec)
+
+To add the file to the role, download the ansible role, find the location and cd into the directory.
+```
+cd /root/.ansible/roles/dev-sec.os-hardening/tasks
+```
+Open the hardening role and edit the file to include the cron.yml
+```
+vi hardening.yml
+```
+```
+- import_tasks: cron.yml  
+  tags: cron
+```
+Then create the cron.yml file
+```
+---
+- name: Find cron files and directories
+  find:
+    paths:
+      - /etc
+    patterns:
+      - cron.hourly
+      - cron.daily
+      - cron.weekly
+      - cron.monthly
+      - cron.d
+      - crontab
+    file_type: any
+  register: cron_directories
+
+- name: Ensure permissions on cron files and directories are configured
+  ansible.builtin.file:
+    path: /etc/cron.d
+    owner: root
+    group: root
+    mode: g-rwx
+
+- name: Ensure permissions on cron files and directories are configured
+  ansible.builtin.file:
+    path: /etc/cron.d
+    owner: root
+    group: root
+    mode: o-rwx
+
+- name: Ensure permissions on cron.daily to g-rwx and directories are configured
+  ansible.builtin.file:
+    path: /etc/cron.daily
+    owner: root
+    group: root
+    mode: g-rwx
+
+- name: Ensure permissions on cron.daily to o-rwx
+  ansible.builtin.file:
+    path: /etc/cron.daily
+    owner: root
+    group: root
+    mode: o-rwx
+```
+Now, when running the ansible role as usual, it should complete this as one of the tasks
+
+Add devmount.yml to Ansible role, this is done by creating a devmount.yml file
+```
+- import_tasks: devmount.yml  
+  tags: devmount
+````
+Create the task in the diretory
+```
+cat > devmount.yml
+---
+- name: Mount /dev tmpfs with noexec
+  mount:
+          path: /dev
+          src: tmpfs
+          fstype: tmpfs
+          opts: defaults,noexec,nosuid,nodev
+          state: mounted
+ ```
+This adds the devmount task to the role and then mounts /dev with noexec
+The other manual fix is already utilised within ansible hardening and therefore does not need to be added
