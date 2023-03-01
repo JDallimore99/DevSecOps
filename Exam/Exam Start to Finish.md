@@ -124,3 +124,153 @@ sast:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_COMMIT_BRANCH'
 ```
+
+## Challenge 2: Create an Ansible Playbook to harden the prod server (25
+points)
+In this challenge, you will use Gitlab CI to implement a CI/CD pipeline with the following
+details:
+● Create a job called os-hardening under the deploy stage to run ansible os
+hardening script from dev-sec (https://github.com/dev-sec/ansible-os-hardening),
+the hardening script should harden the production machine
+
+Let’s login into the GitLab and configure production machine https://gitlab-ce-xxxxxxxx.lab.practical-devsecops.training/root/django-nv/-/settings/ci_cd. We can use the GitLab credentials provided below to login. Click on the Expand button under the Variables section, then click the Add Variable button. Add the following key/value pair in the form.
+
+|Name	|Value|
+|:---|:----|
+|Key|	DEPLOYMENT_SERVER|
+|Value|	prod-xxxxxxxx|
+
+|Name|	Value|
+|:----|:----|
+|Key|	DEPLOYMENT_SERVER_SSH_PRIVKEY|
+|Value|	Copy the private key from the production machine using SSH. The SSH key is available at /root/.ssh/id_rsa.|
+
+To gain the SSH Key, we enter into the prod machine in the terminal and then output the ssh
+```
+ssh prod-a59tqdzr
+```
+```
+cat /root/ .ssh/id_rsa
+```
+```
+**Output**
+-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAwNpZcFqfOVT0Q486JHr7kQO7HGD2zsGC4iodBxc6bdU/S1znOUM633CIM0UYSqRTaOIRAi+HowZ5W0/8ZKW3okMQTQNjjY7DLiT3lRxRUly1PEi2dAimRGlgm1ycE/ucKXShiH9iSSeIrtkUiHWxvRssxSjdT0lGhB/z7PN2hu0mpj2kCDoeSXRM+EtFBkc45Mbyc7VCIyYcW2gUmFCLr8js/vUuGJYu/FQp8yZDvVg8+bBx5tHjKd+qNCs0HhytWbhVWDwl46uigIrvwk6gaQXgVv1djrPNh9eYYLoXSwTfo//cDrPZspBia9bxShKbL+zGcyoVgAy/yvdM3peI6QIDAQABAoIBAQCubpCJFB6CT7njxY+UYXxa7OH3yChUWClXATpiKHtbzo7CTpSBcbK1WOaIYQ2YrcsXyaoSrQTkyr1HfzBNpKpU5I3A6rjH2AHoId2iDAvuEBaJIUeN6ijhJeMQgxJU7LaRtIFKodU3T7/MTmLJDpMl9YdoCQ8rYJ6ccP5DKu7hF9fQA/8V5/OAkj2XKjQg7APEYV+nFjYvcpl6zw/P5DnRTzKQPG58u2TMb8cPKmi9MAJUAeFd1k2uBxBWXdIXHqDH7fHNFKlb5vaP
+iYsNQtDRiVLDu1+CJ5ddo8IEFBRJVk8xUD9vjAocplINgc9rRIlIKQDs4tHxoceUwv2ZJG1RAoGBAP4tdWTj2ds7TS4yBoOGLHdXDIPHHBHV8g7V39TBCMO4aRfB2Xf+tHR5ykp7o2OqSH+sVDzK4tGy50dWZzw+m4lR3714C4BWx89OZJw/5RJ0j2OSLpIpOPAykJtrKBYPJZ3Lan90HnVkU5MD4blmRrdHFrq6idYaDXCHgBvC1undAoGBAMI8VGw9C1iDPz1PcLOmV3uVpNJFLud0gSaTtUyouGJPbauvwcnVIxgeXjRO3sPMHEvI700OvMDH/YUCE5YB0VtZ0y/55s/qGEp8LRzYFUUxHB38YnekNW9PCUZ5Fmbfcv5a2veoxdT4FO/U6Stg0aLXQxakyFj7AcDKl1WcCzh9AoGAEHuuMz67cAYmeSpxVbIrzAlvHFSbM2Tmb6PbAhcKlHavCgVeLvPri+oh/jaKX/o4/V6Vj+OwVdz+NpgZ1cRRndQbaFQSmt4F0yHIUIGsP0gjzFc8gen+cUU2L34BeXy9+b+pRl6nYwGAkfYce0Nwro4DoVRbf/DskjGXUzWNblkCgYAMWBMxccu3y1eIiPTrpeWnaAI6jsUFVqUik36RKaPWM6APqjLRpeb+EGgCQQTtQpqFwnZa2lXqlospGdGu1dy9Rn8ibGpbyk/S5ANl8uGfLRjRWwnS+q+erFI1lVp0HT1Mpu+Fj8dK2p1SBKDw7c1E4RNVbBGDfihFXVqyySD5bQKBgQDJt2QT2oxFP/UYU1OQO1Vu38U82Yw5F7XCFE5GaUWv2n+ID/4kg6IRsCXOqlg8u/Hat/tsAI4WNjyjXSLLdCvF85d6Sx2/pbPMfNBttDr6Oj0+CikklQCi1PSx8Bw50vWJVZFlHSC0thG7psyrflbOoLBKdwfvBkrfSrpfyNeQGQ==-----END RSA PRIVATE KEY-----
+```
+Finally, Click on the button Add Variable. Next, please visit https://gitlab-ce-xxxxxxxx.lab.practical-devsecops.training/root/django-nv/-/blob/master/.gitlab-ci.yml. Click on the Edit button and append the following code to the .gitlab-ci.yml file.
+```
+#job named ansible-hardening
+ansible-hardening:
+#In prod stage
+  stage: prod
+  #Using the docker image shown below (alreadu downloaded Ansible)
+  image: willhallonline/ansible:2.9-ubuntu-18.04
+  #Functions that are executed before the main script is run, setting up required ssh keys and permissions
+  before_script:
+  #Ensuring .ssh directory is present
+    - mkdir -p ~/.ssh
+    #Echoing the prod server private key to the id_rsa file while removing the carriage return. Needs to be removed to ensure there are no copy bays
+    - echo "$DEPLOYMENT_SERVER_SSH_PRIVKEY" | tr -d '\r' > ~/.ssh/id_rsa
+    #Set appropriate file permissions to the file key to allow for read and write access (chmod)
+    - chmod 600 ~/.ssh/id_rsa
+    #Load necessary environment variables for ssh connection
+    - eval "$(ssh-agent -s)"
+    Loading prod servers private key using ssh-add
+    - ssh-add ~/.ssh/id_rsa
+    #Grab the rsa fingerprint of the deployment server amd append to the known hosts file
+    - ssh-keyscan -t rsa $DEPLOYMENT_SERVER >> ~/.ssh/known_hosts
+  script:
+  #Reads the deployment server variable and adds to the inventory.ini file with a group named prod
+    - echo -e "[prod]\n$DEPLOYMENT_SERVER" >> inventory.ini
+    #installing the role from ansible galaxy
+    - ansible-galaxy install dev-sec.os-hardening
+    #using the ansible playbook to run the ansible hardening file with the inventory.ini
+    - ansible-playbook -i inventory.ini ansible-hardening.yml --check | hardening.json
+    artifacts:
+    paths: [hardening.json]
+    when: always
+  allow_failure: true
+```
+
+Need to include the hardening script within the git repository
+```---
+#Names playbook
+- name: Playbook to harden ubuntu OS.
+#places within the prod host
+  hosts: prod
+  #allows the root user to use file
+  remote_user: root
+  become: yes
+#this is the ansible role that will be used to complete tasks in the inventory.ini file
+  roles:
+    - dev-sec.os-hardening
+```
+
+● Ensure the os-hardening job runs only on the master branch in the django.nv
+repository, and the os-hardening job must not fail the build
+
+```
+rules:
+    - if: $CI_COMMIT_BRANCH == 'master'
+```
+● The os-hardening job must save the results on the CI server for further processing
+in a machine-readable format like JSON, CSV, XML, etc.
+Firstly, can use environmental variables to make the output become json. This output makes the playbook output as a json by using the ANSIBLE_SDTOUT_CALLBACK=json variable
+```
+ANSIBLE_STDOUT_CALLBACK=json ansible-playbook -i inventory.ini ansible-hardening.yml | tee hardening.json
+```
+Another way is to edit the config file for ansible, ```ansible.cfg``` and include this within its configuration settings
+```
+cat > ansible.cfg <<EOF
+[defaults]
+stdout_callback = json
+inventory = /inventory.ini
+EOF
+``` 
+● Explain the need to save the output in machine-readable formats like JSON, CSV,
+XML, etc.
+● Run the ansible playbook in the dry mode before making changes to the production
+machine
+
+
+● As always, test everything locally on the DevSecOps-box machine before integrating
+it into the CI/CD pipeline
+
+Download Ansible locally into terminal
+```sh
+pip3 install ansible==6.4.0 ansible-lint==6.8.1
+```
+Create an inventory file for the ansible-playbook to run against, allowing for the playbook to harden the devsecops prod server
+```
+cat > inventory.ini <<EOL
+# DevSecOps Studio Inventory
+[devsecops]
+devsecops-box-xxxxxxx
+[prod]
+prod-xxxxxxxx
+EOL
+```
+Ensure the SSH’s yes/no prompt is not shown while running the ansible commands, so we will be using ssh-keyscan to capture the key signatures beforehand.
+```sh
+ssh-keyscan -t rsa prod-xxxxxxxx devsecops-box-xxxxxxxx >> ~/.ssh/known_hosts
+```
+Create the main playbook file with the host set to the prod host, therefore allowing the playbook to target everything within the host, which in this case is the prod server
+```sh
+cat > /hardening/ansible-hardening.yml <<EOL
+---
+- name: Playbook to harden Ubuntu OS.
+  hosts: prod
+  remote_user: root
+  become: yes
+  roles:
+    - dev-sec.os-hardening
+EOL
+```
+Download the role from the Ansible role repository using the ansible galaxy function
+```
+ansible-galaxy install dev-sec.os-hardening
+```
+Run the ansible-playbook against the prod server using the ansible-playbook function, specifting the inventory target, the playbook being used. Using the ansible built in feature --check, we can run this in dry mode. The infrastructure should be indempotent. If the code is run once, there should be changes. If the same code is ran a second time, then it should not make any further changes. The Ansible Playbook can be run numerous times but only does it make a change the first time due to this being the only time. Using --check mode, we can run the playbook against the machine and simulate what the playbook would do against the prod serveer without the playook making any changes to the server itself.
+```
+ansible-playbook -i inventory.ini ansible-hardening.yml --check
+```
