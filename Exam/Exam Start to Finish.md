@@ -430,6 +430,7 @@ This creates a total of 3 control failures and 8 overall failures
 
 - Fix the inspec control failures on the production machine manually (not using any
 automation), you can log in to the production machine using the ssh command
+- Explain how you manually (not using any automation) fixed inspec control failures 
 
 To fix this enter into the prod machine and file ound with failures
 ```
@@ -453,10 +454,60 @@ tmpfs /dev tmpfs defaults,noexec,nosuid,nodev 0 0
 tmpfs                   /dev/shm                tmpfs   defaults,nodev,nosuid,noexec        0 0
 mount -o remount,noexec,nosuid,nodev /dev
 ```
-- Explain how you manually (not using any automation) fixed inspec control failures
 - Ensure the linux-baseline profile checks for the presence of Antivirus software on
 the production machine (if the presence of the Antivirus software is not being
 checked in the linux-baseline profile, please include the Antivirus check)
+
+Add a control for scanning the antivirus by creating a custom inspec profile
+```
+inspec init profile antivirus_check --chef-license accept
+```
+and then creating the control in the profile/controls directory
+```
+cat >> ubuntu/controls/example.rb <<EOL
+title "sample section"
+
+# you can also use plain tests
+describe file("/tmp") do
+  it { should be_directory }
+end
+
+# you add controls here
+
+describe package('clamav') do
+  it { should be_installed }
+  its('version') { should eq '0.98.7' }
+end
+
+describe service('clamd') do
+  it { should be_enabled }
+  it { should be_installed }
+  it { should be_latest }
+  it { should be_running }
+end
+```
+Then run both the linux baseline address and new antivirus profile against the prod machine to gain antivirus scan too
+```
+inspec exec https://github.com/dev-sec/linux-baseline /root/antivirus_check -t ssh://root@prod-xxxxxxxx -i ~/.ssh/id_rsa --chef-license accept
+```
+#### or 
+https://docs.chef.io/inspec/profiles/ 
+Follow instructions to create a new profile that runs the antivirus scan but also includes the linux baseline scan Add Linux-baseline to the inspec.yml file as shown in the code here
+```
+depends:
+- name: linux-baseline
+  url: https://github.com/dev-sec/linux-baseline/archive/master.tar.gz
+```
+Use tree profile-name to see if there is a inspec.lock file created. If there is remove it
+```
+rm profile-name inspec.lock
+```
+Add linux baseline controls to the example.rb by using the following command
+```
+include_controls 'linux-baseline'
+```
+Then run the profile against the target and it will complete both sets of controls
+
 - 10 Bonus points will be awarded if the manual fixes are added to the ansible role
 os-hardening (of dev-sec)
 
