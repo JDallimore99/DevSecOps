@@ -185,10 +185,12 @@ ansible-hardening:
     #installing the role from ansible galaxy
     - ansible-galaxy install dev-sec.os-hardening
     #using the ansible playbook to run the ansible hardening file with the inventory.ini
-    - ansible-playbook -i inventory.ini ansible-hardening.yml --check | hardening.json
+    - ANSIBLE_STDOUT_CALLBACK=json ansible-playbook -i inventory.ini ansible-hardening.yml --check | hardening.json
     artifacts:
     paths: [hardening.json]
     when: always
+  rules:
+     - if: $CI_COMMIT_BRANCH == 'master'
   allow_failure: true
 ```
 
