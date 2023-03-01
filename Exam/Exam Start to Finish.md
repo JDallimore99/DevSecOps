@@ -449,10 +449,22 @@ chmod g-rwx /etc/cron.daily
 chmod g-rwx /etc/cron.d
 ```
 To fix the mounting issue, write these lines of code within the prod machine
-```sh
-tmpfs /dev tmpfs defaults,noexec,nosuid,nodev 0 0
+Add nodev, nosuid, and noexec options to /dev/shm
+Edit the file /etc/fstab, enter:
+```
+vi /etc/fstab
+```
+Locate the /dev/shm line:
+```
+tmpfs                   /dev/shm                tmpfs   defaults        0 0
+```
+Append the text ,nodev,nosuid,noexec to the list of mount options in column 4. In the end, your entry should look like as follows:
+```
 tmpfs                   /dev/shm                tmpfs   defaults,nodev,nosuid,noexec        0 0
-mount -o remount,noexec,nosuid,nodev /dev
+```
+Save and close the file.
+```
+mount -o remount,noexec,nosuid,nodev /dev/shm
 ```
 - Ensure the linux-baseline profile checks for the presence of Antivirus software on
 the production machine (if the presence of the Antivirus software is not being
