@@ -341,7 +341,7 @@ docker run -v $(pwd):/src --rm -w /src hysnsec/detect-secrets scan | tee secrets
 ```
 ## Challenge 4: Run ZAP Scan against the django.nv application (production) and upload results to Defect Dojo (20 points) In this challenge, you will run a ZAP baseline scan on the django.nv application(production) from the DevSecOps Box, then integrate baseline scan into CI/CD pipeline with the following details:
 - Run ZAP Scan on the django.nv app, and upload the results of the ZAP baseline scan into defect dojo's engagement id 1, using upload-results.py python script
-- 
+
 Download source code from the Django.nv repository on gitlab and cd into webapp
 ```
 git clone https://gitlab.practical-devsecops.training/pdso/django.nv webapp
@@ -386,6 +386,11 @@ python3 upload-results.py --host dojo-xxxxxxxx.practical-devsecops.training --ap
 ```
 
 - Ensure the ZAP Scan identifies more application urls for scanning using various available spidering options
+
+There are a number of different ways to include furhter spidering in the ZAP scan using the options in the tooling. First is to extend the average time of the scan by using the -m option (time in minutes for the zap scan to spider), -J option (ajax spidering) and -z options (allows you to set spider options). Here we use the first two options to increase spidering. m is set to 5, rather than the default which is 1 minute. 
+```sh
+docker run --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-xxxxxxxx.lab.practical-devsecops.training -m 5 -J
+```
 - Create a zap job in the integration stage to scan the production app (django.nv), and automatically upload the ZAP Scan results to Defect Dojo on every scan
 ```
 dast-zap:
@@ -394,7 +399,7 @@ dast-zap:
     - apk add py-pip py-requests
     - docker pull owasp/zap2docker-stable:2.10.0
   script:
-    - docker run --user $(id -u):$(id -g) -w /zap -v $(pwd):/zap/wrk:rw --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-xxxxxxxx.lab.practical-devsecops.training -d -x zap-output.xml
+    - docker run --user $(id -u):$(id -g) -w /zap -v $(pwd):/zap/wrk:rw --rm owasp/zap2docker-stable:2.10.0 zap-baseline.py -t https://prod-xxxxxxxx.lab.practical-devsecops.training -d -x zap-output.xml -J -m 5
   after_script:
     - python3 upload-results.py --host $DOJO_HOST --api_key $DOJO_API_TOKEN --engagement_id 1 --product_id 1 --lead_id 1 --environment "Production" --result_file zap-output.xml --scanner "ZAP Scan"
   artifacts:
@@ -402,3 +407,4 @@ dast-zap:
     when: always
     expire_in: 1 day
 ```
+
