@@ -124,7 +124,10 @@ sast:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_COMMIT_BRANCH'
 ```
-
+- The --user(id-u):(id - g) denotes use of thr current user as a good security practice.
+- The -v $(pwd):/src mounts the current directory in the host (runner) to /src inside the container. 
+- --rm removes the container after the scan,docker can cleans up after itself
+- -r /src sets the source code to be scanned as /src
 ## Challenge 2: Create an Ansible Playbook to harden the prod server (25
 points)
 In this challenge, you will use Gitlab CI to implement a CI/CD pipeline with the following
