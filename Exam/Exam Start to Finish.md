@@ -343,6 +343,8 @@ docker run -v $(pwd):/src --rm -w /src hysnsec/detect-secrets scan | tee secrets
 ## Challenge 4: Run ZAP Scan against the django.nv application (production) and upload results to Defect Dojo (20 points) In this challenge, you will run a ZAP baseline scan on the django.nv application(production) from the DevSecOps Box, then integrate baseline scan into CI/CD pipeline with the following details:
 - Run ZAP Scan on the django.nv app, and upload the results of the ZAP baseline scan into defect dojo's engagement id 1, using upload-results.py python script
 
+> Note: The Django app should be running in the Task Manager during the exam. This can be checked by going to this link (https://prod-xxxxxxxx.lab.practical-devsecops.training/). If the app is running, then a scan can be completed on the prod machine. If there is no django.nv app, then it can be downloaded and released using the instructions in lab 4.4 Continuous Deployment using GitLab (https://github.com/jdallimoreDel/DevSecOps/blob/main/CICD%20Basics/4.4%20Continuous%20Deployment%20using%20GitLab.md) 
+
 Download source code from the Django.nv repository on gitlab and cd into webapp
 ```
 git clone https://gitlab.practical-devsecops.training/pdso/django.nv webapp
