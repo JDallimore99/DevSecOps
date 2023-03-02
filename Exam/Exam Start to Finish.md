@@ -99,7 +99,8 @@ Use the -i output option (or --ignore-config) in the tool scan to add the brakem
 - Also, explain why an issue that is marked as false positive is indeed a false positive
 and not a real finding
 
-
+OWASP Benchmark Project found that SAST Tools are more likely to report Command Injection, SQL Injection, weak randomness and XSS as issues scanned erroneously, therefore these will be evaluated more closely within the brakeman scan. Another way this was decied was the confidence level of the scan. If the confidence was weak, then it could be marked as a false-positive, however evaluation would be needed further. 
+- Final 
 Therefore the entire .gitlab-ci.yml file looks like this
 
 ```sh
