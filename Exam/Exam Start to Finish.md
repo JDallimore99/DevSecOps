@@ -236,10 +236,33 @@ EOF
 ``` 
 - Explain the need to save the output in machine-readable formats like JSON, CSV,
 XML, etc.
+
+Because it is difficult, costly, inconvenient, and in a lot of cases impossible to read data by humans
+Humans make errors, machines (most often) don't
+Machines are good at sharing information with others than humans
+Computers need data to run applications properly
+Computers can identify hidden patterns in the data, that humans cannot see
+Computers can do complex manipulations on the data
+Computers are much less prone to lose information than humans
+Computer labour is cheaper than human labour
+Computer labour is faster than human labour
+
 - Run the ansible playbook in the dry mode before making changes to the production
 machine
 
-
+```
+--check
+```
+or
+Another way to run a playbook in check mode is to add the check_mode parameter to the playbook content:
+```
+---
+- hosts: all
+  tasks:
+  - name: A command to run in check mode
+    command: /your/command
+    check_mode: on
+```
 - As always, test everything locally on the DevSecOps-box machine before integrating
 it into the CI/CD pipeline
 
