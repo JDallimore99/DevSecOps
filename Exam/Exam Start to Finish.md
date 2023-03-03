@@ -86,8 +86,8 @@ Utilising the brakeman.ignore function within the tools inbuilt feature, you can
 {
     "ignored_warnings": [
         {
-          "fingerprint": "febb21e45b226bb6bcdc23031091394a3ed80c76357f66b1f348844a7626f4df",
-          "note": "ignore XSS"
+          "fingerprint": "ff21c7fa4c5ef7f975a711304bcbd91447abe9723c54c59cb8e75a675ef7bf21",
+          "note": "ignore Remote Execution as it is a False Positive, this is a safe way of using constantize"
         }
     ]
 }
@@ -99,7 +99,7 @@ Use the -i output option (or --ignore-config) in the tool scan to add the brakem
 - Also, explain why an issue that is marked as false positive is indeed a false positive
 and not a real finding
 
-OWASP Benchmark Project found that SAST Tools are more likely to report Command Injection, SQL Injection, weak randomness and XSS as issues scanned erroneously, therefore these will be evaluated more closely within the brakeman scan. Another way this was decied was the confidence level of the scan. If the confidence was weak, then it could be marked as a false-positive, however evaluation would be needed further. 
+OWASP Benchmark Project found that SAST Tools are more likely to report Command Injection, SQL Injection, weak randomness and XSS as issues scanned erroneously, therefore these will be evaluated more closely within the brakeman scan. Another way this was decied was the confidence level of the scan. If the confidence was weak, then it could be marked as a false-positive, however evaluation would be needed further. This was marked as a false positive and removed  becuase of the fact it is a safe way of reflection.
 - Final 
 Therefore the entire .gitlab-ci.yml file looks like this
 
